@@ -72,7 +72,7 @@ fn apply_to_zero::<test_crate::main::{closure}<'_>>(f: test_crate::main::{closur
     return
 }
 
-struct test_crate::main::{closure#1}<'_0> {
+struct test_crate::main::{closure#1}<mut '_0> {
   _0: &'_0 mut u8,
 }
 

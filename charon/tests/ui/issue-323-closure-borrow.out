@@ -19,7 +19,7 @@ fn next_u64<'_0>(self: &'_0 mut Rng)
 }
 
 // Full name: test_crate::new::{closure}
-struct {closure}<'_0> {
+struct {closure}<mut '_0> {
   _0: &'_0 mut Rng,
 }
 

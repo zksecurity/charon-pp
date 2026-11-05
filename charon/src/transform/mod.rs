@@ -14,6 +14,7 @@ pub mod finish_translation {
 pub mod add_missing_info {
     pub mod add_implied_outlives;
     pub mod add_missing_alias_clauses;
+    pub mod compute_closure_lifetime_mutability;
     pub mod compute_layout_guarantees;
     pub mod compute_short_names;
     pub mod detect_drop_flags;
@@ -120,6 +121,8 @@ pub fn run_transformation_passes(options: &CliOpts, ctx: &mut TransformCtx) {
         global(&add_missing_info::add_missing_alias_clauses::Transform),
         // Make explicit the outlives predicates implied by item signatures.
         global(&add_missing_info::add_implied_outlives::Transform),
+        // Compute which lifetimes of closure states are used mutably.
+        global(&add_missing_info::compute_closure_lifetime_mutability::Transform),
     ]);
 
     // Body cleanup passes on the ullbc.

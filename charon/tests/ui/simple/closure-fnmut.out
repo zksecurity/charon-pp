@@ -97,7 +97,7 @@ where
 }
 
 // Full name: test_crate::main::{closure}
-struct {closure}<'_0> {
+struct {closure}<mut '_0> {
   _0: &'_0 mut u8,
 }
 

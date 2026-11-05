@@ -2347,7 +2347,7 @@ pub fn test_array_map(x: [i32; 256usize]) -> [i32; 256usize]
     return
 }
 
-struct test_crate::test_fnmut_with_ref::{closure}<'_0> {
+struct test_crate::test_fnmut_with_ref::{closure}<mut '_0> {
   _0: &'_0 mut usize,
 }
 

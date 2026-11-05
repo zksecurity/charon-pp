@@ -29,7 +29,7 @@ pub trait Iterator<Self>
     vtable: core::iter::traits::iterator::Iterator::{vtable}
 }
 
-struct test_crate::main::{closure}<'_0> {
+struct test_crate::main::{closure}<mut '_0> {
   _0: &'_0 mut u32,
 }
 
