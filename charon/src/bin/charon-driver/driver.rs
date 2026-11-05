@@ -1,5 +1,6 @@
 //! Run the rustc compiler with our custom options and hooks.
 use crate::CharonFailure;
+use crate::closure_requirements;
 use crate::toolchain::CHARON_SYSROOT_VAR;
 use crate::translate::translate_crate;
 use charon_lib::errors::ErrorCtx;
@@ -59,12 +60,14 @@ static SKIP_BORROWCK: AtomicBool = AtomicBool::new(false);
 fn set_skip_borrowck() {
     SKIP_BORROWCK.store(true, Ordering::SeqCst);
 }
-fn skip_borrowck_if_set(providers: &mut Providers) {
+fn override_borrowck(providers: &mut Providers) {
     if SKIP_BORROWCK.load(Ordering::SeqCst) {
         providers.queries.mir_borrowck = |tcx, _def_id| {
             // Empty result, which is what is used for custom_mir bodies.
             Ok(tcx.arena.alloc(Default::default()))
         }
+    } else {
+        closure_requirements::record_with_borrowck(providers);
     }
 }
 
@@ -94,7 +97,7 @@ fn setup_compiler(
         }
 
         config.override_queries = Some(|_sess, providers| {
-            skip_borrowck_if_set(providers);
+            override_borrowck(providers);
 
             // TODO: catch the MIR in-flight to avoid stealing issues?
             // providers.mir_built = |tcx, def_id| {

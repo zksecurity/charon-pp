@@ -98,6 +98,7 @@ struct {closure}<'a, '_1, '_2, T>
 where
     TraitClause0: (T: Sized),
     TraitClause1: (T: Provide<'a>),
+    Outlives0: ('_1: '_2),
 {}
 
 // Full name: test_crate::make
@@ -118,10 +119,11 @@ extern "rust-call" fn impl_Fn_tuple_for_closure::call<'a, '_1, '_2, '_3, '_4, T>
 where
     TraitClause0: (T: Sized),
     TraitClause1: (T: Provide<'a>),
-    Outlives0: ('a: '_4),
-    Outlives1: ('_1: '_4),
-    Outlives2: ('_2: '_4),
-    Outlives3: (T: '_4),
+    Outlives0: ('_1: '_2),
+    Outlives1: ('a: '_4),
+    Outlives2: ('_1: '_4),
+    Outlives3: ('_2: '_4),
+    Outlives4: (T: '_4),
 {
     let _0: (&'9 u8, &'10 u8); // return
     let _1: &'41 {closure}<'a, '_1, '_2, T>[TraitClause0, TraitClause1]; // arg #1
@@ -159,10 +161,11 @@ extern "rust-call" fn call_mut<'a, '_1, '_2, '_3, '_4, T>(state: &'_4 mut {closu
 where
     TraitClause0: (T: Sized),
     TraitClause1: (T: Provide<'a>),
-    Outlives0: ('a: '_4),
-    Outlives1: ('_1: '_4),
-    Outlives2: ('_2: '_4),
-    Outlives3: (T: '_4),
+    Outlives0: ('_1: '_2),
+    Outlives1: ('a: '_4),
+    Outlives2: ('_1: '_4),
+    Outlives3: ('_2: '_4),
+    Outlives4: (T: '_4),
 {
     let _0: (&'_3 u8, &'_2 u8); // return
     let state: &'_4 mut {closure}<'a, '_1, '_2, T>[TraitClause0, TraitClause1]; // arg #1
@@ -188,6 +191,7 @@ extern "rust-call" fn call_once<'a, '_1, '_2, '_3, T>(_1: {closure}<'a, '_1, '_2
 where
     TraitClause0: (T: Sized),
     TraitClause1: (T: Provide<'a>),
+    Outlives0: ('_1: '_2),
 {
     let _0: (&'9 u8, &'10 u8); // return
     let _1: {closure}<'a, '_1, '_2, T>[TraitClause0, TraitClause1]; // arg #1
@@ -213,6 +217,7 @@ impl<'a, '_1, '_2, '_3, T> "impl_FnOnce_tuple_for_closure" FnOnce<(&'_3 u8,)> fo
 where
     TraitClause0: (T: Sized),
     TraitClause1: (T: Provide<'a>),
+    Outlives0: ('_1: '_2),
 {
     proof ImpliedClause0: ({closure}<'a, '_1, '_2, T>[TraitClause0, TraitClause1]: MetaSized) = {built_in impl MetaSized for {closure}<'a, '_1, '_2, T>[TraitClause0, TraitClause1]}
     proof ImpliedClause1: ((&'_3 u8,): Sized) = {built_in impl Sized for (&'_3 u8,)}
@@ -228,6 +233,7 @@ impl<'a, '_1, '_2, '_3, T> "impl_FnMut_tuple_for_closure" FnMut<(&'_3 u8,)> for 
 where
     TraitClause0: (T: Sized),
     TraitClause1: (T: Provide<'a>),
+    Outlives0: ('_1: '_2),
 {
     proof ImpliedClause0: ({closure}<'a, '_1, '_2, T>[TraitClause0, TraitClause1]: MetaSized) = {built_in impl MetaSized for {closure}<'a, '_1, '_2, T>[TraitClause0, TraitClause1]}
     proof ImpliedClause1: ({closure}<'a, '_1, '_2, T>[TraitClause0, TraitClause1]: FnOnce<(&'_3 u8,)>) = impl_FnOnce_tuple_for_closure<'a, '_1, '_2, '_3, T>[TraitClause0, TraitClause1]
@@ -242,6 +248,7 @@ impl<'a, '_1, '_2, '_3, T> "impl_Fn_tuple_for_closure" Fn<(&'_3 u8,)> for {closu
 where
     TraitClause0: (T: Sized),
     TraitClause1: (T: Provide<'a>),
+    Outlives0: ('_1: '_2),
 {
     proof ImpliedClause0: ({closure}<'a, '_1, '_2, T>[TraitClause0, TraitClause1]: MetaSized) = {built_in impl MetaSized for {closure}<'a, '_1, '_2, T>[TraitClause0, TraitClause1]}
     proof ImpliedClause1: ({closure}<'a, '_1, '_2, T>[TraitClause0, TraitClause1]: FnMut<(&'_3 u8,)>) = impl_FnMut_tuple_for_closure<'a, '_1, '_2, '_3, T>[TraitClause0, TraitClause1]

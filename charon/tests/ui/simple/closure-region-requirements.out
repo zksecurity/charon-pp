@@ -1,0 +1,342 @@
+# Final LLBC before serialization:
+
+// Full name: core::marker::MetaSized
+#[fundamental]
+#[lang_item(MetaSized)]
+pub trait MetaSized<Self>
+
+// Full name: core::marker::Sized
+#[fundamental]
+#[lang_item(Sized)]
+pub trait Sized<Self>
+{
+    proof ImpliedClause0: (Self: MetaSized)
+    non-dyn-compatible
+}
+
+struct () {}
+
+// Full name: core::marker::Destruct
+#[lang_item(Destruct)]
+pub trait Destruct<Self>
+{
+    fn drop_glue<'_0_1>;
+    non-dyn-compatible
+}
+
+// Full name: core::marker::Tuple
+#[fundamental]
+#[lang_item(Tuple)]
+pub trait Tuple<Self>
+{
+    proof ImpliedClause0: (Self: MetaSized)
+    non-dyn-compatible
+}
+
+// Full name: core::ops::function::FnOnce
+#[fundamental]
+#[lang_item(FnOnce)]
+pub trait FnOnce<Self, Args>
+{
+    proof ImpliedClause0: (Self: MetaSized)
+    proof ImpliedClause1: (Args: Sized)
+    proof ImpliedClause2: (Args: Tuple)
+    proof ImpliedClause3: (Self::Output: Sized)
+    type Output
+    fn call_once;
+    vtable: core::ops::function::FnOnce::{vtable}<Args, Self::Output>
+}
+
+// Full name: core::option::Option
+#[lang_item(Option)]
+#[diagnostic_item("Option")]
+pub enum Option<T>
+where
+    TraitClause0: (T: Sized),
+{
+  None,
+  Some { _0: T },
+}
+
+struct (_,)<A> {
+  _0: A,
+}
+
+// Full name: core::option::{Option<T>[TraitClause0]}::map
+pub fn map<T, U, F>(_1: Option<T>[TraitClause0], _2: F) -> Option<U>[TraitClause1]
+where
+    TraitClause0: (T: Sized),
+    TraitClause1: (U: Sized),
+    TraitClause2: (F: Sized),
+    TraitClause3: (F: FnOnce<(T,)>),
+    TraitClause4: (F: Destruct),
+    TypeConstraint0: TraitClause3::Output = U,
+= <opaque>
+
+// Full name: core::slice::index::SliceIndex
+#[diagnostic_item("SliceIndex")]
+pub unsafe trait SliceIndex<Self, T>
+{
+    proof ImpliedClause0: (Self: MetaSized)
+    proof ImpliedClause1: (T: MetaSized)
+    proof ImpliedClause2: (Self::Output: MetaSized)
+    type Output
+    fn get<'_0_1>;
+    fn get_mut<'_0_1>;
+    fn get_unchecked;
+    fn get_unchecked_mut;
+    #[track_caller]
+    fn index<'_0_1>;
+    #[track_caller]
+    fn index_mut<'_0_1>;
+    vtable: core::slice::index::SliceIndex::{vtable}<T, Self::Output>
+}
+
+// Full name: core::slice::index::{impl SliceIndex<[T]> for usize}::index_mut
+pub fn impl_SliceIndex_slice_for_usize::index_mut<'_0, T>(_1: usize, _2: &'_0 mut [T]) -> &'_0 mut T
+where
+    TraitClause0: (T: Sized),
+    Outlives0: (T: '_0),
+= <opaque>
+
+// Full name: core::slice::index::{impl SliceIndex<[T]> for usize}::index
+pub fn impl_SliceIndex_slice_for_usize::index<'_0, T>(_1: usize, _2: &'_0 [T]) -> &'_0 T
+where
+    TraitClause0: (T: Sized),
+    Outlives0: (T: '_0),
+= <opaque>
+
+// Full name: core::slice::index::{impl SliceIndex<[T]> for usize}::get_unchecked_mut
+#[track_caller]
+pub unsafe fn impl_SliceIndex_slice_for_usize::get_unchecked_mut<T>(_1: usize, _2: *mut [T]) -> *mut T
+where
+    TraitClause0: (T: Sized),
+= <opaque>
+
+// Full name: core::slice::index::{impl SliceIndex<[T]> for usize}::get_unchecked
+#[track_caller]
+pub unsafe fn impl_SliceIndex_slice_for_usize::get_unchecked<T>(_1: usize, _2: *const [T]) -> *const T
+where
+    TraitClause0: (T: Sized),
+= <opaque>
+
+// Full name: core::slice::index::{impl SliceIndex<[T]> for usize}::get_mut
+pub fn impl_SliceIndex_slice_for_usize::get_mut<'_0, T>(_1: usize, _2: &'_0 mut [T]) -> Option<&'_0 mut T>[{built_in impl Sized for &'_0 mut T}]
+where
+    TraitClause0: (T: Sized),
+    Outlives0: (T: '_0),
+= <opaque>
+
+// Full name: core::slice::index::{impl SliceIndex<[T]> for usize}::get
+pub fn impl_SliceIndex_slice_for_usize::get<'_0, T>(_1: usize, _2: &'_0 [T]) -> Option<&'_0 T>[{built_in impl Sized for &'_0 T}]
+where
+    TraitClause0: (T: Sized),
+    Outlives0: (T: '_0),
+= <opaque>
+
+// Full name: core::slice::index::{impl SliceIndex<[T]> for usize}
+unsafe impl<T> "impl_SliceIndex_slice_for_usize" SliceIndex<[T]> for usize
+where
+    TraitClause0: (T: Sized),
+{
+    proof ImpliedClause0: (usize: MetaSized) = {built_in impl MetaSized for usize}
+    proof ImpliedClause1: ([T]: MetaSized) = {built_in impl MetaSized for [T]}
+    proof ImpliedClause2: (T: MetaSized) = TraitClause0::ImpliedClause0
+    type Output = T
+    fn get<'_0_1> = impl_SliceIndex_slice_for_usize::get<'_0_1, T>[TraitClause0]
+    fn get_mut<'_0_1> = impl_SliceIndex_slice_for_usize::get_mut<'_0_1, T>[TraitClause0]
+    fn get_unchecked = impl_SliceIndex_slice_for_usize::get_unchecked<T>[TraitClause0]
+    fn get_unchecked_mut = impl_SliceIndex_slice_for_usize::get_unchecked_mut<T>[TraitClause0]
+    fn index<'_0_1> = impl_SliceIndex_slice_for_usize::index<'_0_1, T>[TraitClause0]
+    fn index_mut<'_0_1> = impl_SliceIndex_slice_for_usize::index_mut<'_0_1, T>[TraitClause0]
+    vtable: lazy
+}
+
+pub fn core::slice::{[T]}::get<'_0, T, I>(_1: &'_0 [T], _2: I) -> Option<&'_0 TraitClause2::Output>[{built_in impl Sized for &'_0 TraitClause2::Output}]
+where
+    TraitClause0: (T: Sized),
+    TraitClause1: (I: Sized),
+    TraitClause2: (I: SliceIndex<[T]>),
+    Outlives0: (T: '_0),
+    Outlives1: (TraitClause2::Output: '_0),
+    Outlives2: (I: '_0),
+= <opaque>
+
+// Full name: test_crate::Kind
+pub enum Kind {
+  Definition { _0: u32 },
+  Axiom,
+}
+
+// Full name: test_crate::Decl
+pub struct Decl {
+  kind: Kind,
+}
+
+struct test_crate::class::{closure}<'_0, '_1>
+where
+    Outlives0: ('_0: '_1),
+{}
+
+// Full name: test_crate::class::{impl FnOnce<(&'_0 Decl,)> for test_crate::class::{closure}<'_0, '_1>}::call_once
+extern "rust-call" fn {impl FnOnce<(&'_0 Decl,)> for test_crate::class::{closure}<'_0, '_1>}::call_once<'_0, '_1>(_1: test_crate::class::{closure}<'_0, '_1>, tupled_args: (&'_0 Decl,)) -> &'_1 Kind
+where
+    Outlives0: ('_0: '_1),
+{
+    let _0: &'1 Kind; // return
+    let _1: test_crate::class::{closure}<'_0, '_1>; // arg #1
+    let tupled_args: (&'_0 Decl,); // arg #2
+    let d: &'12 Decl; // local
+
+    storage_live(_0)
+    storage_live(d)
+    d = noretag move tupled_args._0
+    _0 = &(*d).kind
+    storage_dead(d)
+    storage_dead(tupled_args)
+    storage_dead(_1)
+    return
+}
+
+// Full name: test_crate::class::{impl FnOnce<(&'_0 Decl,)> for test_crate::class::{closure}<'_0, '_1>}
+impl<'_0, '_1> FnOnce<(&'_0 Decl,)> for test_crate::class::{closure}<'_0, '_1>
+where
+    Outlives0: ('_0: '_1),
+{
+    proof ImpliedClause0: (test_crate::class::{closure}<'_0, '_1>: MetaSized) = {built_in impl MetaSized for test_crate::class::{closure}<'_0, '_1>}
+    proof ImpliedClause1: ((&'_0 Decl,): Sized) = {built_in impl Sized for (&'_0 Decl,)}
+    proof ImpliedClause2: ((&'_0 Decl,): Tuple) = {built_in impl Tuple for (&'_0 Decl,)}
+    proof ImpliedClause3: (&'_1 Kind: Sized) = {built_in impl Sized for &'_1 Kind}
+    type Output = &'_1 Kind
+    fn call_once = {impl FnOnce<(&'_0 Decl,)> for test_crate::class::{closure}<'_0, '_1>}::call_once<'_0, '_1>
+    vtable: lazy
+}
+
+// Full name: test_crate::class
+pub fn class<'_0>(decls: &'_0 [Decl], n: usize) -> u32
+{
+    let _0: u32; // return
+    let decls: &'1 [Decl]; // arg #1
+    let n: usize; // arg #2
+    let _3: Option<&'10 Kind>[{built_in impl Sized for &'10 Kind}]; // anonymous local
+    let _4: Option<&'22 Decl>[{built_in impl Sized for &'22 Decl}]; // anonymous local
+    let _5: &'26 [Decl]; // anonymous local
+    let _6: usize; // anonymous local
+    let _7: test_crate::class::{closure}<'36, '37>; // anonymous local
+    let x: &'39 u32; // local
+
+    storage_live(_0)
+    storage_live(_3)
+    storage_live(_4)
+    storage_live(_5)
+    _5 = &(*decls) with_metadata(copy decls.metadata)
+    storage_live(_6)
+    _6 = copy n
+    _4 = core::slice::{[T]}::get<'41, Decl, usize>[{built_in impl Sized for Decl}, {built_in impl Sized for usize}, impl_SliceIndex_slice_for_usize<Decl>[{built_in impl Sized for Decl}]](move _5, move _6)
+    ↳⚡ storage_dead(n)
+        storage_dead(decls)
+        unwind_continue
+    storage_dead(_6)
+    storage_dead(_5)
+    storage_live(_7)
+    _7 = test_crate::class::{closure} {  }
+    _3 = map<&'47 Decl, &'49 Kind, test_crate::class::{closure}<'47, '60>>[{built_in impl Sized for &'47 Decl}, {built_in impl Sized for &'49 Kind}, {built_in impl Sized for test_crate::class::{closure}<'47, '60>}, {impl FnOnce<(&'_0 Decl,)> for test_crate::class::{closure}<'_0, '_1>}<'47, '60>, {built_in impl Destruct for test_crate::class::{closure}<'47, '60>}](move _4, move _7)
+    ↳⚡ storage_dead(n)
+        storage_dead(decls)
+        unwind_continue
+    storage_dead(_7)
+    storage_dead(_4)
+    match _3 {
+        Option::Some => {
+            match (*(_3 as variant Option::Some)._0) {
+                Kind::Definition => {
+                    storage_live(x)
+                    x = &((*(_3 as variant Option::Some)._0) as variant Kind::Definition)._0
+                    _0 = copy (*x)
+                    storage_dead(x)
+                    storage_dead(_3)
+                    storage_dead(n)
+                    storage_dead(decls)
+                    return
+                },
+                _ => {
+                },
+            }
+        },
+        _ => {
+        },
+    }
+    _0 = const 0u32
+    storage_dead(_3)
+    storage_dead(n)
+    storage_dead(decls)
+    return
+}
+
+struct test_crate::first::{closure}<'_0, '_1>
+where
+    Outlives0: ('_0: '_1),
+{}
+
+// Full name: test_crate::first::{impl FnOnce<(&'_0 u32,)> for test_crate::first::{closure}<'_0, '_1>}::call_once
+extern "rust-call" fn {impl FnOnce<(&'_0 u32,)> for test_crate::first::{closure}<'_0, '_1>}::call_once<'_0, '_1>(_1: test_crate::first::{closure}<'_0, '_1>, tupled_args: (&'_0 u32,)) -> &'_1 u32
+where
+    Outlives0: ('_0: '_1),
+{
+    let _0: &'1 u32; // return
+    let _1: test_crate::first::{closure}<'_0, '_1>; // arg #1
+    let tupled_args: (&'_0 u32,); // arg #2
+    let r: &'10 u32; // local
+
+    storage_live(_0)
+    storage_live(r)
+    r = noretag move tupled_args._0
+    _0 = copy r
+    storage_dead(r)
+    storage_dead(tupled_args)
+    storage_dead(_1)
+    return
+}
+
+// Full name: test_crate::first::{impl FnOnce<(&'_0 u32,)> for test_crate::first::{closure}<'_0, '_1>}
+impl<'_0, '_1> FnOnce<(&'_0 u32,)> for test_crate::first::{closure}<'_0, '_1>
+where
+    Outlives0: ('_0: '_1),
+{
+    proof ImpliedClause0: (test_crate::first::{closure}<'_0, '_1>: MetaSized) = {built_in impl MetaSized for test_crate::first::{closure}<'_0, '_1>}
+    proof ImpliedClause1: ((&'_0 u32,): Sized) = {built_in impl Sized for (&'_0 u32,)}
+    proof ImpliedClause2: ((&'_0 u32,): Tuple) = {built_in impl Tuple for (&'_0 u32,)}
+    proof ImpliedClause3: (&'_1 u32: Sized) = {built_in impl Sized for &'_1 u32}
+    type Output = &'_1 u32
+    fn call_once = {impl FnOnce<(&'_0 u32,)> for test_crate::first::{closure}<'_0, '_1>}::call_once<'_0, '_1>
+    vtable: lazy
+}
+
+// Full name: test_crate::first
+pub fn first<'a>(x: &'a u32) -> Option<&'a u32>[{built_in impl Sized for &'a u32}]
+{
+    let _0: Option<&'8 u32>[{built_in impl Sized for &'8 u32}]; // return
+    let x: &'12 u32; // arg #1
+    let _2: Option<&'13 u32>[{built_in impl Sized for &'13 u32}]; // anonymous local
+    let _3: &'17 u32; // anonymous local
+    let _4: test_crate::first::{closure}<'26, '27>; // anonymous local
+
+    storage_live(_0)
+    storage_live(_2)
+    storage_live(_3)
+    _3 = copy x
+    _2 = Option::Some { _0: move _3 }
+    storage_dead(_3)
+    storage_live(_4)
+    _4 = test_crate::first::{closure} {  }
+    _0 = map<&'40 u32, &'41 u32, test_crate::first::{closure}<'40, '51>>[{built_in impl Sized for &'40 u32}, {built_in impl Sized for &'41 u32}, {built_in impl Sized for test_crate::first::{closure}<'40, '51>}, {impl FnOnce<(&'_0 u32,)> for test_crate::first::{closure}<'_0, '_1>}<'40, '51>, {built_in impl Destruct for test_crate::first::{closure}<'40, '51>}](move _2, move _4)
+    ↳⚡ storage_dead(x)
+        unwind_continue
+    storage_dead(_4)
+    storage_dead(_2)
+    storage_dead(x)
+    return
+}
+
+
+

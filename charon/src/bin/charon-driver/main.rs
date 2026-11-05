@@ -19,6 +19,7 @@
 extern crate rustc_abi;
 extern crate rustc_ast;
 extern crate rustc_ast_pretty;
+extern crate rustc_borrowck;
 extern crate rustc_data_structures;
 extern crate rustc_driver;
 extern crate rustc_hir;
@@ -35,6 +36,7 @@ extern crate rustc_trait_selection;
 #[macro_use]
 extern crate charon_lib;
 
+mod closure_requirements;
 mod driver;
 #[macro_use]
 pub mod hax;

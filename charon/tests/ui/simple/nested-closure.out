@@ -86,7 +86,10 @@ struct test_crate::{Foo<'a, T>[TraitClause0]}::test_nested_closures::{closure}::
 where
     TraitClause0: (T: Sized),
     TraitClause1: (T: Clone),
-    Outlives0: (T: '_4),
+    Outlives0: ('_1: '_2),
+    Outlives1: ('_2: '_1),
+    Outlives2: ('_4: '_3),
+    Outlives3: (T: '_4),
 {
   _0: &'_4 T,
 }
@@ -96,14 +99,17 @@ extern "rust-call" fn {impl Fn<(&'_5 u32,)> for test_crate::{Foo<'a, T>[TraitCla
 where
     TraitClause0: (T: Sized),
     TraitClause1: (T: Clone),
-    Outlives0: (T: '_4),
-    Outlives1: ('a: '_6),
-    Outlives2: ('_1: '_6),
-    Outlives3: ('_2: '_6),
-    Outlives4: ('_3: '_6),
-    Outlives5: ('_4: '_6),
-    Outlives6: (T: '_6),
-    Outlives7: (T: '_3),
+    Outlives0: ('_1: '_2),
+    Outlives1: ('_2: '_1),
+    Outlives2: ('_4: '_3),
+    Outlives3: (T: '_4),
+    Outlives4: ('a: '_6),
+    Outlives5: ('_1: '_6),
+    Outlives6: ('_2: '_6),
+    Outlives7: ('_3: '_6),
+    Outlives8: ('_4: '_6),
+    Outlives9: (T: '_6),
+    Outlives10: (T: '_3),
 {
     let _0: test_crate::{Foo<'a, T>[TraitClause0]}::test_nested_closures::{closure}::{closure}::{closure}<'7, '8, '9, T>[TraitClause0, TraitClause1]; // return
     let _1: &'31 test_crate::{Foo<'a, T>[TraitClause0]}::test_nested_closures::{closure}::{closure}<'a, '_1, '_2, '_3, '_4, T>[TraitClause0, TraitClause1]; // arg #1
@@ -128,7 +134,16 @@ struct test_crate::{Foo<'a, T>[TraitClause0]}::test_nested_closures::{closure}<'
 where
     TraitClause0: (T: Sized),
     TraitClause1: (T: Clone),
-    Outlives0: (T: '_6),
+    Outlives0: ('_1: '_2),
+    Outlives1: ('_1: '_3),
+    Outlives2: ('_2: '_1),
+    Outlives3: ('_2: '_3),
+    Outlives4: ('_3: '_1),
+    Outlives5: ('_3: '_2),
+    Outlives6: ('_5: '_4),
+    Outlives7: ('_6: '_4),
+    Outlives8: ('_6: '_5),
+    Outlives9: (T: '_6),
 {
   _0: &'_6 T,
 }
@@ -138,16 +153,25 @@ extern "rust-call" fn impl_Fn_unit_for_closure::call<'a, '_1, '_2, '_3, '_4, '_5
 where
     TraitClause0: (T: Sized),
     TraitClause1: (T: Clone),
-    Outlives0: (T: '_6),
-    Outlives1: ('a: '_7),
-    Outlives2: ('_1: '_7),
-    Outlives3: ('_2: '_7),
-    Outlives4: ('_3: '_7),
-    Outlives5: ('_4: '_7),
-    Outlives6: ('_5: '_7),
-    Outlives7: ('_6: '_7),
-    Outlives8: (T: '_7),
-    Outlives9: (T: '_5),
+    Outlives0: ('_1: '_2),
+    Outlives1: ('_1: '_3),
+    Outlives2: ('_2: '_1),
+    Outlives3: ('_2: '_3),
+    Outlives4: ('_3: '_1),
+    Outlives5: ('_3: '_2),
+    Outlives6: ('_5: '_4),
+    Outlives7: ('_6: '_4),
+    Outlives8: ('_6: '_5),
+    Outlives9: (T: '_6),
+    Outlives10: ('a: '_7),
+    Outlives11: ('_1: '_7),
+    Outlives12: ('_2: '_7),
+    Outlives13: ('_3: '_7),
+    Outlives14: ('_4: '_7),
+    Outlives15: ('_5: '_7),
+    Outlives16: ('_6: '_7),
+    Outlives17: (T: '_7),
+    Outlives18: (T: '_5),
 {
     let _0: test_crate::{Foo<'a, T>[TraitClause0]}::test_nested_closures::{closure}::{closure}<'22, '23, '24, '25, '26, T>[TraitClause0, TraitClause1]; // return
     let _1: &'69 test_crate::{Foo<'a, T>[TraitClause0]}::test_nested_closures::{closure}<'a, '_1, '_2, '_3, '_4, '_5, '_6, T>[TraitClause0, TraitClause1]; // arg #1

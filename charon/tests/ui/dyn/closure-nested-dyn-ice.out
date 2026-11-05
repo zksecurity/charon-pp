@@ -90,7 +90,11 @@ struct (_,)<A> {
 }
 
 // Full name: test_crate::closure::{closure}
-struct {closure}<'_0, '_1> {}
+struct {closure}<'_0, '_1>
+where
+    Outlives0: ('_0: 'static),
+    Outlives1: ('_1: 'static),
+{}
 
 // Full name: test_crate::closure
 pub fn closure()
@@ -110,9 +114,11 @@ pub fn closure()
 // Full name: test_crate::closure::{impl Fn<(&'_2 (dyn Fn<(Box<(dyn Send + '_0)>[{built_in impl MetaSized for (dyn Send + '_0)}, {built_in impl Sized for Global}],), ImpliedClause1::ImpliedClause1::Output = ()> + '_2),)> for {closure}<'_0, '_1>}::call
 extern "rust-call" fn call<'_0, '_1, '_2, '_3>(_1: &'_3 {closure}<'_0, '_1>, tupled_args: (&'_2 (dyn Fn<(Box<(dyn Send + '_0)>[{built_in impl MetaSized for (dyn Send + '_0)}, {built_in impl Sized for Global}],), ImpliedClause1::ImpliedClause1::Output = ()> + '_2),))
 where
-    Outlives0: ('_0: '_3),
-    Outlives1: ('_1: '_3),
-    Outlives2: ('_0: '_2),
+    Outlives0: ('_0: 'static),
+    Outlives1: ('_1: 'static),
+    Outlives2: ('_0: '_3),
+    Outlives3: ('_1: '_3),
+    Outlives4: ('_0: '_2),
 {
     let _0: (); // return
     let _1: &'171 {closure}<'_0, '_1>; // arg #1

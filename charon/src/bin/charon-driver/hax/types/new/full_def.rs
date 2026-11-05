@@ -47,6 +47,8 @@ where
 
     // Store extra placeholder regions we use if erased lifetimes are found in identity args.
     let mut extra_early_regions = vec![];
+    // The identity args with these placeholders, before normalization.
+    let mut unerased_identity_args = None;
     let this = if def_id.can_have_generics(s) {
         // Construct the args for this item, unerasing lifetimes found erased (see
         // `ParamEnv.extra_early_regions`).
@@ -55,6 +57,7 @@ where
             if def_id.is_typeck_child(s) {
                 let name = rustc_span::Symbol::intern(&format!("__unerased_region_{def_id:?}"));
                 (identity_args, extra_early_regions) = unerase_lifetimes(s, identity_args, name);
+                unerased_identity_args = Some(identity_args);
             }
             substitute(tcx, s.typing_env(), args, identity_args)
         };
@@ -192,6 +195,30 @@ where
         }
         // Record the extra early regions added into these vars.
         param_env.extra_early_regions = extra_early_regions.sinto(s);
+        // State the region requirements that the borrow checker propagates out of the closure.
+        if args.is_none()
+            && let Some(local_id) = def_id.as_real_def_id().and_then(|id| id.as_local())
+            && tcx.def_kind(local_id) == RDefKind::Closure
+        {
+            let _ = tcx.mir_borrowck(tcx.typeck_root_def_id(local_id.to_def_id()).expect_local());
+            let clauses = crate::closure_requirements::closure_requirement_clauses(
+                tcx,
+                local_id,
+                unerased_identity_args.unwrap(),
+            );
+            let first = param_env.predicates.predicates.len();
+            for (i, clause) in clauses.into_iter().enumerate() {
+                let pred = rustc_trait_elaboration::ItemPredicate {
+                    id: rustc_trait_elaboration::ItemPredicateId::Required(
+                        def_id.clone(),
+                        (first + i) as u32,
+                    ),
+                    clause,
+                    span: tcx.def_span(local_id),
+                };
+                param_env.predicates.predicates.push(pred.sinto(s));
+            }
+        }
     }
 
     let attributes = def_id.attrs(tcx).to_vec();
