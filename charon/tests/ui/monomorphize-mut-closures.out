@@ -1,0 +1,1875 @@
+# Final LLBC before serialization:
+
+// Full name: core::clone::Clone
+#[lang_item(Clone)]
+#[diagnostic_item("Clone")]
+pub trait Clone<Self>
+{
+    fn clone<'_0_1>;
+    non-dyn-compatible
+}
+
+// Full name: core::marker::Copy
+#[lang_item(Copy)]
+#[diagnostic_item("Copy")]
+pub trait Copy<Self>
+{
+    proof ImpliedClause0: (Self: Clone)
+    non-dyn-compatible
+}
+
+struct () {}
+
+// Full name: core::marker::Destruct
+#[lang_item(Destruct)]
+pub trait Destruct<Self>
+{
+    fn drop_glue<'_0_1>;
+    non-dyn-compatible
+}
+
+// Full name: alloc::vec::Vec
+#[diagnostic_item("Vec")]
+pub opaque type Vec<T>
+
+// Full name: test_crate::Eng
+pub struct Eng<mut 'a> {
+  t: &'a mut Vec<u32>,
+  d: u32,
+}
+
+struct test_crate::{Eng<'a>}::opt::{closure}<'a, '_1, mut '_2, mut '_3>
+where
+    Outlives0: ('_3: '_2),
+{
+  _0: &'_2 mut Eng<'_3>,
+}
+
+#[lang_item(Destruct)]
+pub trait core::marker::Destruct::<test_crate::{Eng<'a>}::opt::{closure}<_, _, _, _>><'_0, '_1, '_2, '_3>
+where
+    Outlives0: ('_3: '_2),
+{
+    fn drop_glue<'_0_1>;
+    non-dyn-compatible
+}
+
+struct test_crate::two_closures::{closure}<mut '_0> {
+  _0: &'_0 mut u32,
+}
+
+#[lang_item(Destruct)]
+pub trait core::marker::Destruct::<test_crate::two_closures::{closure}<_>><'_0>
+{
+    fn drop_glue<'_0_1>;
+    non-dyn-compatible
+}
+
+struct test_crate::two_closures::{closure#1}<mut '_0> {
+  _0: &'_0 mut u32,
+}
+
+#[lang_item(Destruct)]
+pub trait core::marker::Destruct::<test_crate::two_closures::{closure#1}<_>><'_0>
+{
+    fn drop_glue<'_0_1>;
+    non-dyn-compatible
+}
+
+struct test_crate::nested::{closure}<mut '_0> {
+  _0: &'_0 mut u32,
+}
+
+struct test_crate::nested::{closure#1}<mut '_0> {
+  _0: test_crate::nested::{closure}<'_0>,
+}
+
+#[lang_item(Destruct)]
+pub trait core::marker::Destruct::<test_crate::nested::{closure#1}<_>><'_0>
+{
+    fn drop_glue<'_0_1>;
+    non-dyn-compatible
+}
+
+struct test_crate::use_through::{closure}<mut '_0> {
+  _0: &'_0 mut u32,
+}
+
+#[lang_item(Destruct)]
+pub trait core::marker::Destruct::<test_crate::use_through::{closure}<_>><'_0>
+{
+    fn drop_glue<'_0_1>;
+    non-dyn-compatible
+}
+
+struct test_crate::generic::{closure}<mut '_0, '_1, T>
+where
+    Outlives0: (T: '_0),
+    Outlives1: (T: '_1),
+{
+  _0: &'_0 mut Vec<T>,
+  _1: &'_1 T,
+}
+
+#[lang_item(Destruct)]
+pub trait core::marker::Destruct::<test_crate::generic::{closure}<_, _, _>><'_0, '_1, T0>
+where
+    Outlives0: (T0: '_0),
+    Outlives1: (T0: '_1),
+{
+    fn drop_glue<'_0_1>;
+    non-dyn-compatible
+}
+
+struct test_crate::{Eng<'a>}::count::{closure}<'a, '_1, '_2, mut '_3> {
+  _0: &'_3 mut bool,
+}
+
+#[lang_item(Destruct)]
+pub trait core::marker::Destruct::<test_crate::{Eng<'a>}::count::{closure}<_, _, _, _>><'_0, '_1, '_2, '_3>
+{
+    fn drop_glue<'_0_1>;
+    non-dyn-compatible
+}
+
+// Full name: core::ops::function::FnOnce
+#[fundamental]
+#[lang_item(FnOnce)]
+pub trait FnOnce<Self, Args, Self_Output>
+{
+    fn call_once;
+    vtable: core::ops::function::FnOnce::{vtable}<Args, Self_Output>
+}
+
+// Full name: core::ops::function::FnMut
+#[fundamental]
+#[lang_item(FnMut)]
+pub trait FnMut<Self, Args, Self_Clause0_Output>
+{
+    proof ImpliedClause0: (Self: FnOnce<Args, Self_Clause0_Output>)
+    fn call_mut<'_0_1>;
+    vtable: core::ops::function::FnMut::{vtable}<Args, Self_Clause0_Output>
+}
+
+struct (_, _)<A, B> {
+  _0: A,
+  _1: B,
+}
+
+#[fundamental]
+#[lang_item(FnOnce)]
+pub trait core::ops::function::FnOnce::<_, (&_ mut Eng<_>, _), _><'_0, '_1, T0, T1, T2>
+{
+    fn call_once;
+    vtable: core::ops::function::FnOnce::{vtable}<(&'_0 mut Eng<'_1>, T1), T2>
+}
+
+#[fundamental]
+#[lang_item(FnMut)]
+pub trait core::ops::function::FnMut::<_, (&_ mut Eng<_>, _), _><'_0, '_1, T0, T1, T2>
+{
+    proof ImpliedClause0: (T0: core::ops::function::FnOnce::<_, (&_ mut Eng<_>, _), _><'_0, '_1, T1, T2>)
+    fn call_mut<'_0_1>;
+    vtable: core::ops::function::FnMut::{vtable}<(&'_0 mut Eng<'_1>, T1), T2>
+}
+
+// Full name: core::option::Option
+#[lang_item(Option)]
+#[diagnostic_item("Option")]
+pub enum Option<T> {
+  None,
+  Some { _0: T },
+}
+
+// Full name: test_crate::{Eng<'a>}::f
+fn f<'a, '_1>(self: &'_1 mut Eng<'a>, x: u32) -> u32
+where
+    Outlives0: ('a: '_1),
+{
+    let _0: u32; // return
+    let self: &'3 mut Eng<'4>; // arg #1
+    let x: u32; // arg #2
+    let _3: u32; // anonymous local
+    let _4: u32; // anonymous local
+
+    storage_live(_0)
+    storage_live(_4)
+    storage_live(_3)
+    _3 = copy x
+    _4 = copy (*self).d panic.+ copy _3
+    (*self).d = move _4
+    storage_dead(_3)
+    _0 = copy (*self).d
+    storage_dead(_4)
+    storage_dead(x)
+    storage_dead(self)
+    return
+}
+
+struct (_,)<A> {
+  _0: A,
+}
+
+// Full name: test_crate::{Eng<'a>}::opt::{impl FnOnce<(u32,), u32> for test_crate::{Eng<'a>}::opt::{closure}<'a, '_1, '_2, '_3>}::call_once
+extern "rust-call" fn {impl FnOnce<(u32,), u32> for test_crate::{Eng<'a>}::opt::{closure}<'a, '_1, '_2, '_3>}::call_once<'a, '_1, '_2, '_3>(_1: test_crate::{Eng<'a>}::opt::{closure}<'a, '_1, '_2, '_3>, tupled_args: (u32,)) -> u32
+where
+    Outlives0: ('_3: '_2),
+{
+    let _0: u32; // return
+    let _1: test_crate::{Eng<'a>}::opt::{closure}<'a, '_1, '_2, '_3>; // arg #1
+    let tupled_args: (u32,); // arg #2
+    let x: u32; // local
+    let _4: &'12 mut Eng<'13>; // anonymous local
+    let _5: u32; // anonymous local
+
+    storage_live(_0)
+    storage_live(x)
+    x = noretag move tupled_args._0
+    storage_live(_4)
+    _4 = &two-phase-mut (*_1._0)
+    storage_live(_5)
+    _5 = copy x
+    _0 = f<'17, '19>(move _4, move _5)
+    ↳⚡ storage_dead(x)
+        storage_dead(tupled_args)
+        storage_dead(_1)
+        unwind_continue
+    storage_dead(_5)
+    storage_dead(_4)
+    storage_dead(x)
+    storage_dead(tupled_args)
+    storage_dead(_1)
+    return
+}
+
+pub fn core::option::{Option<T>}::map::<u32, u32, test_crate::{Eng<'a>}::opt::{closure}<_, _, _, _>><'_0, '_1, '_2, '_3>(self: Option<u32>, f: test_crate::{Eng<'a>}::opt::{closure}<'_0, '_1, '_2, '_3>) -> Option<u32>
+where
+    TraitClause0: (core::marker::Destruct::<test_crate::{Eng<'a>}::opt::{closure}<_, _, _, _>><'_0, '_1, '_2, '_3>),
+    Outlives0: ('_3: '_2),
+    Outlives1: ('_3: '_2),
+{
+    let _0: Option<u32>; // return
+    let self: Option<u32>; // arg #1
+    let f: test_crate::{Eng<'a>}::opt::{closure}<'_0, '_1, '_2, '_3>; // arg #2
+    let x: u32; // local
+    let _4: u32; // anonymous local
+    let _5: test_crate::{Eng<'a>}::opt::{closure}<'_0, '_1, '_2, '_3>; // anonymous local
+    let _6: (u32,); // anonymous local
+    let _7: u32; // anonymous local
+
+    storage_live(_0)
+    match self {
+        Option::None => {
+            _0 = Option::None {  }
+        },
+        Option::Some => {
+            storage_live(x)
+            x = move (self as variant Option::Some)._0
+            storage_live(_4)
+            storage_live(_5)
+            _5 = move f
+            storage_live(_6)
+            storage_live(_7)
+            _7 = move x
+            _6 = (move _7,)
+            _4 = {impl FnOnce<(u32,), u32> for test_crate::{Eng<'a>}::opt::{closure}<'a, '_1, '_2, '_3>}::call_once<'_0, '_1, '_2, '_3>(move _5, move _6)
+            ↳⚡ storage_dead(f)
+                storage_dead(self)
+                unwind_continue
+            storage_dead(_7)
+            storage_dead(_6)
+            storage_dead(_5)
+            _0 = Option::Some { _0: move _4 }
+            storage_dead(_4)
+            storage_dead(x)
+        },
+    }
+    conditional_drop[TraitClause0::drop_glue<'0>] f
+    ↳⚡ storage_dead(f)
+        storage_dead(self)
+        unwind_continue
+    storage_dead(f)
+    storage_dead(self)
+    return
+}
+
+// Full name: alloc::alloc::Global
+#[lang_item(GlobalAlloc)]
+pub opaque type Global
+
+// Full name: alloc::vec::{Vec<T>}::push
+pub fn push<'_0, T, A>(_1: &'_0 mut Vec<T>, _2: T)
+where
+    TraitClause0: (A: Destruct),
+    Outlives0: (T: '_0),
+    Outlives1: (A: '_0),
+= <opaque>
+
+// Full name: test_crate::{Eng<'a>}::telescope
+fn telescope<'a, '_1, T1>(self: &'_1 mut Eng<'a>, n: u32, next: T1) -> u32
+where
+    TraitClause0: for<'_0_1> (T1: core::ops::function::FnMut::<_, (&_ mut Eng<_>, _), _><'_0_1, 'a, u32, bool>),
+    Outlives0: ('a: '_1),
+{
+    let _0: u32; // return
+    let self: &'3 mut Eng<'4>; // arg #1
+    let n: u32; // arg #2
+    let next: T1; // arg #3
+    let i: u32; // local
+    let c: u32; // local
+    let _6: bool; // anonymous local
+    let _7: u32; // anonymous local
+    let _8: u32; // anonymous local
+    let _9: bool; // anonymous local
+    let _10: &'6 mut T1; // anonymous local
+    let _11: (&'9 mut Eng<'10>, u32); // anonymous local
+    let _12: &'11 mut Eng<'12>; // anonymous local
+    let _13: u32; // anonymous local
+    let _14: u32; // anonymous local
+    let _15: u32; // anonymous local
+
+    storage_live(_0)
+    storage_live(_14)
+    storage_live(_15)
+    storage_live(i)
+    i = const 0u32
+    fake_read(i)
+    storage_live(c)
+    c = const 0u32
+    fake_read(c)
+    loop {
+        storage_live(_6)
+        storage_live(_7)
+        _7 = copy i
+        storage_live(_8)
+        _8 = copy n
+        _6 = move _7 < move _8
+        if move _6 {
+            storage_dead(_8)
+            storage_dead(_7)
+            storage_live(_9)
+            storage_live(_10)
+            _10 = &mut next
+            storage_live(_11)
+            storage_live(_12)
+            _12 = &two-phase-mut (*self)
+            storage_live(_13)
+            _13 = copy i
+            _11 = (move _12, move _13)
+            _9 = TraitClause0<'_>::call_mut<'23>(move _10, move _11)
+            ↳⚡ conditional_drop[{built_in impl Destruct for T1}::drop_glue<'25>] next
+                ↳⚡ storage_dead(_15)
+                    storage_dead(_14)
+                    storage_dead(next)
+                    storage_dead(n)
+                    storage_dead(self)
+                    unwind_terminate
+                storage_dead(_15)
+                storage_dead(_14)
+                storage_dead(next)
+                storage_dead(n)
+                storage_dead(self)
+                unwind_continue
+            if move _9 {
+                storage_dead(_13)
+                storage_dead(_12)
+                storage_dead(_11)
+                storage_dead(_10)
+                _14 = copy c panic.+ const 1u32
+                c = move _14
+            } else {
+                storage_dead(_13)
+                storage_dead(_12)
+                storage_dead(_11)
+                storage_dead(_10)
+            }
+            storage_dead(_9)
+            _15 = copy i panic.+ const 1u32
+            i = move _15
+            storage_dead(_6)
+            continue 0
+        } else {
+            break 0
+        }
+    }
+    storage_dead(_8)
+    storage_dead(_7)
+    storage_dead(_6)
+    _0 = copy c
+    storage_dead(c)
+    storage_dead(i)
+    conditional_drop[{built_in impl Destruct for T1}::drop_glue<'24>] next
+    ↳⚡ storage_dead(_15)
+        storage_dead(_14)
+        storage_dead(next)
+        storage_dead(n)
+        storage_dead(self)
+        unwind_continue
+    storage_dead(_15)
+    storage_dead(_14)
+    storage_dead(next)
+    storage_dead(n)
+    storage_dead(self)
+    return
+}
+
+// Full name: test_crate::{Eng<'a>}::count::{impl FnMut<(&'_4 mut Eng<'_2>, u32), bool> for test_crate::{Eng<'a>}::count::{closure}<'a, '_1, '_2, '_3>}::call_mut
+extern "rust-call" fn {impl FnMut<(&'_4 mut Eng<'_2>, u32), bool> for test_crate::{Eng<'a>}::count::{closure}<'a, '_1, '_2, '_3>}::call_mut<'a, '_1, '_2, '_3, '_4, '_5>(_1: &'_5 mut test_crate::{Eng<'a>}::count::{closure}<'a, '_1, '_2, '_3>, tupled_args: (&'_4 mut Eng<'_2>, u32)) -> bool
+where
+    Outlives0: ('a: '_5),
+    Outlives1: ('_1: '_5),
+    Outlives2: ('_2: '_5),
+    Outlives3: ('_3: '_5),
+    Outlives4: ('_2: '_4),
+{
+    let _0: bool; // return
+    let _1: &'14 mut test_crate::{Eng<'a>}::count::{closure}<'a, '_1, '_2, '_3>; // arg #1
+    let tupled_args: (&'_4 mut Eng<'_2>, u32); // arg #2
+    let e: &'18 mut Eng<'19>; // local
+    let i: u32; // local
+    let _5: (); // anonymous local
+    let _6: &'21 mut Vec<u32>; // anonymous local
+    let _7: u32; // anonymous local
+    let _8: bool; // anonymous local
+    let _9: u32; // anonymous local
+    let _10: u32; // anonymous local
+    let _11: u32; // anonymous local
+
+    storage_live(_0)
+    storage_live(e)
+    storage_live(i)
+    e = noretag move tupled_args._0
+    i = noretag move tupled_args._1
+    storage_live(_5)
+    storage_live(_6)
+    _6 = &two-phase-mut (*(*e).t)
+    storage_live(_7)
+    _7 = copy i
+    _5 = push<'25, u32, Global>[{built_in impl Destruct for Global}](move _6, move _7)
+    ↳⚡ storage_dead(i)
+        storage_dead(e)
+        storage_dead(tupled_args)
+        storage_dead(_1)
+        unwind_continue
+    storage_dead(_7)
+    storage_dead(_6)
+    storage_dead(_5)
+    storage_live(_8)
+    storage_live(_9)
+    _9 = copy i
+    _8 = move _9 == const 2u32
+    if move _8 {
+        storage_dead(_9)
+        (*(*_1)._0) = const true
+    } else {
+        storage_dead(_9)
+    }
+    storage_dead(_8)
+    storage_live(_10)
+    storage_live(_11)
+    _11 = copy i
+    _10 = move _11 panic.% const 2u32
+    storage_dead(_11)
+    _0 = move _10 == const 0u32
+    storage_dead(_10)
+    storage_dead(i)
+    storage_dead(e)
+    storage_dead(tupled_args)
+    storage_dead(_1)
+    return
+}
+
+fn test_crate::{Eng<'a>}::telescope::<_, _, test_crate::{Eng<'a>}::count::{closure}<_, _, _, _>><'_0, '_1, '_2, '_3, '_4, '_5>(self: &'_1 mut Eng<'_0>, n: u32, next: test_crate::{Eng<'a>}::count::{closure}<'_2, '_3, '_0, '_4>) -> u32
+where
+    Outlives0: ('_0: '_1),
+{
+    let _0: u32; // return
+    let self: &'3 mut Eng<'4>; // arg #1
+    let n: u32; // arg #2
+    let next: test_crate::{Eng<'a>}::count::{closure}<'_2, '_3, '_0, '_4>; // arg #3
+    let i: u32; // local
+    let c: u32; // local
+    let _6: bool; // anonymous local
+    let _7: u32; // anonymous local
+    let _8: u32; // anonymous local
+    let _9: bool; // anonymous local
+    let _10: &'6 mut test_crate::{Eng<'a>}::count::{closure}<'_2, '_3, '_0, '_4>; // anonymous local
+    let _11: (&'9 mut Eng<'10>, u32); // anonymous local
+    let _12: &'11 mut Eng<'12>; // anonymous local
+    let _13: u32; // anonymous local
+    let _14: u32; // anonymous local
+    let _15: u32; // anonymous local
+
+    storage_live(_0)
+    storage_live(_14)
+    storage_live(_15)
+    storage_live(i)
+    i = const 0u32
+    fake_read(i)
+    storage_live(c)
+    c = const 0u32
+    fake_read(c)
+    loop {
+        storage_live(_6)
+        storage_live(_7)
+        _7 = copy i
+        storage_live(_8)
+        _8 = copy n
+        _6 = move _7 < move _8
+        if move _6 {
+            storage_dead(_8)
+            storage_dead(_7)
+            storage_live(_9)
+            storage_live(_10)
+            _10 = &mut next
+            storage_live(_11)
+            storage_live(_12)
+            _12 = &two-phase-mut (*self)
+            storage_live(_13)
+            _13 = copy i
+            _11 = (move _12, move _13)
+            _9 = {impl FnMut<(&'_4 mut Eng<'_2>, u32), bool> for test_crate::{Eng<'a>}::count::{closure}<'a, '_1, '_2, '_3>}::call_mut<'_2, '_3, '_0, '_4, '_5, '23>(move _10, move _11)
+            ↳⚡ conditional_drop[{built_in impl core::marker::Destruct::<test_crate::{Eng<'a>}::count::{closure}<_, _, _, _>><'_2, '_3, '_0, '_4>}::drop_glue<'25>] next
+                ↳⚡ storage_dead(_15)
+                    storage_dead(_14)
+                    storage_dead(next)
+                    storage_dead(n)
+                    storage_dead(self)
+                    unwind_terminate
+                storage_dead(_15)
+                storage_dead(_14)
+                storage_dead(next)
+                storage_dead(n)
+                storage_dead(self)
+                unwind_continue
+            if move _9 {
+                storage_dead(_13)
+                storage_dead(_12)
+                storage_dead(_11)
+                storage_dead(_10)
+                _14 = copy c panic.+ const 1u32
+                c = move _14
+            } else {
+                storage_dead(_13)
+                storage_dead(_12)
+                storage_dead(_11)
+                storage_dead(_10)
+            }
+            storage_dead(_9)
+            _15 = copy i panic.+ const 1u32
+            i = move _15
+            storage_dead(_6)
+            continue 0
+        } else {
+            break 0
+        }
+    }
+    storage_dead(_8)
+    storage_dead(_7)
+    storage_dead(_6)
+    _0 = copy c
+    storage_dead(c)
+    storage_dead(i)
+    conditional_drop[{built_in impl core::marker::Destruct::<test_crate::{Eng<'a>}::count::{closure}<_, _, _, _>><'_2, '_3, '_0, '_4>}::drop_glue<'24>] next
+    ↳⚡ storage_dead(_15)
+        storage_dead(_14)
+        storage_dead(next)
+        storage_dead(n)
+        storage_dead(self)
+        unwind_continue
+    storage_dead(_15)
+    storage_dead(_14)
+    storage_dead(next)
+    storage_dead(n)
+    storage_dead(self)
+    return
+}
+
+// Full name: test_crate::{Eng<'a>}::count
+pub fn count<'a, '_1>(self: &'_1 mut Eng<'a>, n: u32) -> (u32, bool)
+where
+    Outlives0: ('a: '_1),
+{
+    let _0: (u32, bool); // return
+    let self: &'3 mut Eng<'4>; // arg #1
+    let n: u32; // arg #2
+    let seen: bool; // local
+    let c: u32; // local
+    let _5: &'5 mut Eng<'6>; // anonymous local
+    let _6: u32; // anonymous local
+    let _7: test_crate::{Eng<'a>}::count::{closure}<'20, '21, '22, '23>; // anonymous local
+    let _8: &'24 mut bool; // anonymous local
+    let _9: u32; // anonymous local
+    let _10: bool; // anonymous local
+
+    storage_live(_0)
+    storage_live(seen)
+    seen = const false
+    fake_read(seen)
+    storage_live(c)
+    storage_live(_5)
+    _5 = &two-phase-mut (*self)
+    storage_live(_6)
+    _6 = copy n
+    storage_live(_7)
+    storage_live(_8)
+    _8 = &mut seen
+    _7 = test_crate::{Eng<'a>}::count::{closure} { _0: move _8 }
+    storage_dead(_8)
+    c = test_crate::{Eng<'a>}::telescope::<_, _, test_crate::{Eng<'a>}::count::{closure}<_, _, _, _>><'33, '81, '47, '48, '50, '79>(move _5, move _6, move _7)
+    ↳⚡ storage_dead(n)
+        storage_dead(self)
+        unwind_continue
+    storage_dead(_7)
+    storage_dead(_6)
+    storage_dead(_5)
+    fake_read(c)
+    storage_live(_9)
+    _9 = copy c
+    storage_live(_10)
+    _10 = copy seen
+    _0 = (move _9, move _10)
+    storage_dead(_10)
+    storage_dead(_9)
+    storage_dead(c)
+    storage_dead(seen)
+    storage_dead(n)
+    storage_dead(self)
+    return
+}
+
+// Full name: test_crate::{Eng<'a>}::opt
+pub fn opt<'a, '_1>(self: &'_1 mut Eng<'a>, o: Option<u32>) -> Option<u32>
+where
+    Outlives0: ('a: '_1),
+{
+    let _0: Option<u32>; // return
+    let self: &'3 mut Eng<'4>; // arg #1
+    let o: Option<u32>; // arg #2
+    let _3: Option<u32>; // anonymous local
+    let _4: test_crate::{Eng<'a>}::opt::{closure}<'14, '15, '16, '17>; // anonymous local
+    let _5: &'18 mut Eng<'19>; // anonymous local
+
+    storage_live(_0)
+    storage_live(_3)
+    _3 = copy o
+    storage_live(_4)
+    storage_live(_5)
+    _5 = &uniq (*self)
+    _4 = test_crate::{Eng<'a>}::opt::{closure} { _0: move _5 }
+    storage_dead(_5)
+    _0 = core::option::{Option<T>}::map::<u32, u32, test_crate::{Eng<'a>}::opt::{closure}<_, _, _, _>><'40, '41, '42, '43>[{built_in impl core::marker::Destruct::<test_crate::{Eng<'a>}::opt::{closure}<_, _, _, _>><'40, '41, '42, '43>}](move _3, move _4)
+    ↳⚡ storage_dead(o)
+        storage_dead(self)
+        unwind_continue
+    storage_dead(_4)
+    storage_dead(_3)
+    storage_dead(o)
+    storage_dead(self)
+    return
+}
+
+// Full name: test_crate::tel
+fn tel<T0>(n: u32, f: T0)
+where
+    TraitClause0: (T0: FnMut<(u32,), ()>),
+{
+    let _0: (); // return
+    let n: u32; // arg #1
+    let f: T0; // arg #2
+    let i: u32; // local
+    let _4: bool; // anonymous local
+    let _5: u32; // anonymous local
+    let _6: u32; // anonymous local
+    let _7: (); // anonymous local
+    let _8: &'1 mut T0; // anonymous local
+    let _9: (u32,); // anonymous local
+    let _10: u32; // anonymous local
+    let _11: u32; // anonymous local
+
+    storage_live(_0)
+    storage_live(_11)
+    _0 = ()
+    storage_live(i)
+    i = const 0u32
+    fake_read(i)
+    loop {
+        storage_live(_4)
+        storage_live(_5)
+        _5 = copy i
+        storage_live(_6)
+        _6 = copy n
+        _4 = move _5 < move _6
+        if move _4 {
+            storage_dead(_6)
+            storage_dead(_5)
+            storage_live(_7)
+            storage_live(_8)
+            _8 = &mut f
+            storage_live(_9)
+            storage_live(_10)
+            _10 = copy i
+            _9 = (move _10,)
+            _7 = TraitClause0::call_mut<'2>(move _8, move _9)
+            ↳⚡ conditional_drop[{built_in impl Destruct for T0}::drop_glue<'4>] f
+                ↳⚡ storage_dead(_11)
+                    storage_dead(f)
+                    storage_dead(n)
+                    unwind_terminate
+                storage_dead(_11)
+                storage_dead(f)
+                storage_dead(n)
+                unwind_continue
+            storage_dead(_10)
+            storage_dead(_9)
+            storage_dead(_8)
+            storage_dead(_7)
+            _11 = copy i panic.+ const 1u32
+            i = move _11
+            storage_dead(_4)
+            continue 0
+        } else {
+            break 0
+        }
+    }
+    storage_dead(_6)
+    storage_dead(_5)
+    _0 = ()
+    storage_dead(_4)
+    storage_dead(i)
+    conditional_drop[{built_in impl Destruct for T0}::drop_glue<'3>] f
+    ↳⚡ storage_dead(_11)
+        storage_dead(f)
+        storage_dead(n)
+        unwind_continue
+    storage_dead(_11)
+    storage_dead(f)
+    storage_dead(n)
+    return
+}
+
+// Full name: test_crate::two_closures::{impl FnMut<(u32,), ()> for test_crate::two_closures::{closure}<'_0>}::call_mut
+extern "rust-call" fn {impl FnMut<(u32,), ()> for test_crate::two_closures::{closure}<'_0>}::call_mut<'_0, '_1>(_1: &'_1 mut test_crate::two_closures::{closure}<'_0>, tupled_args: (u32,))
+where
+    Outlives0: ('_0: '_1),
+{
+    let _0: (); // return
+    let _1: &'5 mut test_crate::two_closures::{closure}<'_0>; // arg #1
+    let tupled_args: (u32,); // arg #2
+    let i: u32; // local
+    let _4: u32; // anonymous local
+    let _5: u32; // anonymous local
+
+    storage_live(_0)
+    storage_live(i)
+    storage_live(_5)
+    _0 = ()
+    i = noretag move tupled_args._0
+    storage_live(_4)
+    _4 = copy i
+    _5 = copy (*(*_1)._0) panic.+ copy _4
+    (*(*_1)._0) = move _5
+    _0 = ()
+    storage_dead(_4)
+    storage_dead(_5)
+    storage_dead(i)
+    storage_dead(tupled_args)
+    storage_dead(_1)
+    return
+}
+
+fn test_crate::tel::<test_crate::two_closures::{closure}<_>><'_0>(n: u32, f: test_crate::two_closures::{closure}<'_0>)
+{
+    let _0: (); // return
+    let n: u32; // arg #1
+    let f: test_crate::two_closures::{closure}<'_0>; // arg #2
+    let i: u32; // local
+    let _4: bool; // anonymous local
+    let _5: u32; // anonymous local
+    let _6: u32; // anonymous local
+    let _7: (); // anonymous local
+    let _8: &'1 mut test_crate::two_closures::{closure}<'_0>; // anonymous local
+    let _9: (u32,); // anonymous local
+    let _10: u32; // anonymous local
+    let _11: u32; // anonymous local
+
+    storage_live(_0)
+    storage_live(_11)
+    _0 = ()
+    storage_live(i)
+    i = const 0u32
+    fake_read(i)
+    loop {
+        storage_live(_4)
+        storage_live(_5)
+        _5 = copy i
+        storage_live(_6)
+        _6 = copy n
+        _4 = move _5 < move _6
+        if move _4 {
+            storage_dead(_6)
+            storage_dead(_5)
+            storage_live(_7)
+            storage_live(_8)
+            _8 = &mut f
+            storage_live(_9)
+            storage_live(_10)
+            _10 = copy i
+            _9 = (move _10,)
+            _7 = {impl FnMut<(u32,), ()> for test_crate::two_closures::{closure}<'_0>}::call_mut<'_0, '2>(move _8, move _9)
+            ↳⚡ conditional_drop[{built_in impl core::marker::Destruct::<test_crate::two_closures::{closure}<_>><'_0>}::drop_glue<'4>] f
+                ↳⚡ storage_dead(_11)
+                    storage_dead(f)
+                    storage_dead(n)
+                    unwind_terminate
+                storage_dead(_11)
+                storage_dead(f)
+                storage_dead(n)
+                unwind_continue
+            storage_dead(_10)
+            storage_dead(_9)
+            storage_dead(_8)
+            storage_dead(_7)
+            _11 = copy i panic.+ const 1u32
+            i = move _11
+            storage_dead(_4)
+            continue 0
+        } else {
+            break 0
+        }
+    }
+    storage_dead(_6)
+    storage_dead(_5)
+    _0 = ()
+    storage_dead(_4)
+    storage_dead(i)
+    conditional_drop[{built_in impl core::marker::Destruct::<test_crate::two_closures::{closure}<_>><'_0>}::drop_glue<'3>] f
+    ↳⚡ storage_dead(_11)
+        storage_dead(f)
+        storage_dead(n)
+        unwind_continue
+    storage_dead(_11)
+    storage_dead(f)
+    storage_dead(n)
+    return
+}
+
+// Full name: test_crate::two_closures::{impl FnMut<(u32,), ()> for test_crate::two_closures::{closure#1}<'_0>}::call_mut
+extern "rust-call" fn {impl FnMut<(u32,), ()> for test_crate::two_closures::{closure#1}<'_0>}::call_mut<'_0, '_1>(_1: &'_1 mut test_crate::two_closures::{closure#1}<'_0>, tupled_args: (u32,))
+where
+    Outlives0: ('_0: '_1),
+{
+    let _0: (); // return
+    let _1: &'5 mut test_crate::two_closures::{closure#1}<'_0>; // arg #1
+    let tupled_args: (u32,); // arg #2
+    let i: u32; // local
+    let _4: u32; // anonymous local
+    let _5: u32; // anonymous local
+    let _6: u32; // anonymous local
+    let _7: u32; // anonymous local
+
+    storage_live(_0)
+    storage_live(i)
+    storage_live(_6)
+    storage_live(_7)
+    _0 = ()
+    i = noretag move tupled_args._0
+    storage_live(_4)
+    storage_live(_5)
+    _5 = copy i
+    _6 = const 2u32 panic.* copy _5
+    _4 = move _6
+    storage_dead(_5)
+    _7 = copy (*(*_1)._0) panic.+ copy _4
+    (*(*_1)._0) = move _7
+    _0 = ()
+    storage_dead(_4)
+    storage_dead(_7)
+    storage_dead(_6)
+    storage_dead(i)
+    storage_dead(tupled_args)
+    storage_dead(_1)
+    return
+}
+
+fn test_crate::tel::<test_crate::two_closures::{closure#1}<_>><'_0>(n: u32, f: test_crate::two_closures::{closure#1}<'_0>)
+{
+    let _0: (); // return
+    let n: u32; // arg #1
+    let f: test_crate::two_closures::{closure#1}<'_0>; // arg #2
+    let i: u32; // local
+    let _4: bool; // anonymous local
+    let _5: u32; // anonymous local
+    let _6: u32; // anonymous local
+    let _7: (); // anonymous local
+    let _8: &'1 mut test_crate::two_closures::{closure#1}<'_0>; // anonymous local
+    let _9: (u32,); // anonymous local
+    let _10: u32; // anonymous local
+    let _11: u32; // anonymous local
+
+    storage_live(_0)
+    storage_live(_11)
+    _0 = ()
+    storage_live(i)
+    i = const 0u32
+    fake_read(i)
+    loop {
+        storage_live(_4)
+        storage_live(_5)
+        _5 = copy i
+        storage_live(_6)
+        _6 = copy n
+        _4 = move _5 < move _6
+        if move _4 {
+            storage_dead(_6)
+            storage_dead(_5)
+            storage_live(_7)
+            storage_live(_8)
+            _8 = &mut f
+            storage_live(_9)
+            storage_live(_10)
+            _10 = copy i
+            _9 = (move _10,)
+            _7 = {impl FnMut<(u32,), ()> for test_crate::two_closures::{closure#1}<'_0>}::call_mut<'_0, '2>(move _8, move _9)
+            ↳⚡ conditional_drop[{built_in impl core::marker::Destruct::<test_crate::two_closures::{closure#1}<_>><'_0>}::drop_glue<'4>] f
+                ↳⚡ storage_dead(_11)
+                    storage_dead(f)
+                    storage_dead(n)
+                    unwind_terminate
+                storage_dead(_11)
+                storage_dead(f)
+                storage_dead(n)
+                unwind_continue
+            storage_dead(_10)
+            storage_dead(_9)
+            storage_dead(_8)
+            storage_dead(_7)
+            _11 = copy i panic.+ const 1u32
+            i = move _11
+            storage_dead(_4)
+            continue 0
+        } else {
+            break 0
+        }
+    }
+    storage_dead(_6)
+    storage_dead(_5)
+    _0 = ()
+    storage_dead(_4)
+    storage_dead(i)
+    conditional_drop[{built_in impl core::marker::Destruct::<test_crate::two_closures::{closure#1}<_>><'_0>}::drop_glue<'3>] f
+    ↳⚡ storage_dead(_11)
+        storage_dead(f)
+        storage_dead(n)
+        unwind_continue
+    storage_dead(_11)
+    storage_dead(f)
+    storage_dead(n)
+    return
+}
+
+// Full name: test_crate::nested::{impl FnMut<(u32,), ()> for test_crate::nested::{closure}<'_0>}::call_mut
+extern "rust-call" fn {impl FnMut<(u32,), ()> for test_crate::nested::{closure}<'_0>}::call_mut<'_0, '_1>(_1: &'_1 mut test_crate::nested::{closure}<'_0>, tupled_args: (u32,))
+where
+    Outlives0: ('_0: '_1),
+{
+    let _0: (); // return
+    let _1: &'5 mut test_crate::nested::{closure}<'_0>; // arg #1
+    let tupled_args: (u32,); // arg #2
+    let i: u32; // local
+    let _4: u32; // anonymous local
+    let _5: u32; // anonymous local
+
+    storage_live(_0)
+    storage_live(i)
+    storage_live(_5)
+    _0 = ()
+    i = noretag move tupled_args._0
+    storage_live(_4)
+    _4 = copy i
+    _5 = copy (*(*_1)._0) panic.+ copy _4
+    (*(*_1)._0) = move _5
+    _0 = ()
+    storage_dead(_4)
+    storage_dead(_5)
+    storage_dead(i)
+    storage_dead(tupled_args)
+    storage_dead(_1)
+    return
+}
+
+// Full name: test_crate::nested::{impl FnMut<(u32,), ()> for test_crate::nested::{closure#1}<'_0>}::call_mut
+extern "rust-call" fn {impl FnMut<(u32,), ()> for test_crate::nested::{closure#1}<'_0>}::call_mut<'_0, '_1>(_1: &'_1 mut test_crate::nested::{closure#1}<'_0>, tupled_args: (u32,))
+where
+    Outlives0: ('_0: '_1),
+{
+    let _0: (); // return
+    let _1: &'8 mut test_crate::nested::{closure#1}<'_0>; // arg #1
+    let tupled_args: (u32,); // arg #2
+    let i: u32; // local
+    let _4: &'11 mut test_crate::nested::{closure}<'12>; // anonymous local
+    let _5: (u32,); // anonymous local
+    let _6: u32; // anonymous local
+    let _7: u32; // anonymous local
+    let _8: u32; // anonymous local
+
+    storage_live(_0)
+    storage_live(i)
+    storage_live(_8)
+    _0 = ()
+    i = noretag move tupled_args._0
+    storage_live(_4)
+    _4 = &mut (*_1)._0
+    storage_live(_5)
+    storage_live(_6)
+    storage_live(_7)
+    _7 = copy i
+    _8 = copy _7 panic.+ const 1u32
+    _6 = move _8
+    storage_dead(_7)
+    _5 = (move _6,)
+    _0 = {impl FnMut<(u32,), ()> for test_crate::nested::{closure}<'_0>}::call_mut<'20, '21>(move _4, move _5)
+    ↳⚡ storage_dead(_8)
+        storage_dead(i)
+        storage_dead(tupled_args)
+        storage_dead(_1)
+        unwind_continue
+    storage_dead(_6)
+    storage_dead(_5)
+    storage_dead(_4)
+    storage_dead(_8)
+    storage_dead(i)
+    storage_dead(tupled_args)
+    storage_dead(_1)
+    return
+}
+
+fn test_crate::tel::<test_crate::nested::{closure#1}<_>><'_0>(n: u32, f: test_crate::nested::{closure#1}<'_0>)
+{
+    let _0: (); // return
+    let n: u32; // arg #1
+    let f: test_crate::nested::{closure#1}<'_0>; // arg #2
+    let i: u32; // local
+    let _4: bool; // anonymous local
+    let _5: u32; // anonymous local
+    let _6: u32; // anonymous local
+    let _7: (); // anonymous local
+    let _8: &'1 mut test_crate::nested::{closure#1}<'_0>; // anonymous local
+    let _9: (u32,); // anonymous local
+    let _10: u32; // anonymous local
+    let _11: u32; // anonymous local
+
+    storage_live(_0)
+    storage_live(_11)
+    _0 = ()
+    storage_live(i)
+    i = const 0u32
+    fake_read(i)
+    loop {
+        storage_live(_4)
+        storage_live(_5)
+        _5 = copy i
+        storage_live(_6)
+        _6 = copy n
+        _4 = move _5 < move _6
+        if move _4 {
+            storage_dead(_6)
+            storage_dead(_5)
+            storage_live(_7)
+            storage_live(_8)
+            _8 = &mut f
+            storage_live(_9)
+            storage_live(_10)
+            _10 = copy i
+            _9 = (move _10,)
+            _7 = {impl FnMut<(u32,), ()> for test_crate::nested::{closure#1}<'_0>}::call_mut<'_0, '2>(move _8, move _9)
+            ↳⚡ conditional_drop[{built_in impl core::marker::Destruct::<test_crate::nested::{closure#1}<_>><'_0>}::drop_glue<'4>] f
+                ↳⚡ storage_dead(_11)
+                    storage_dead(f)
+                    storage_dead(n)
+                    unwind_terminate
+                storage_dead(_11)
+                storage_dead(f)
+                storage_dead(n)
+                unwind_continue
+            storage_dead(_10)
+            storage_dead(_9)
+            storage_dead(_8)
+            storage_dead(_7)
+            _11 = copy i panic.+ const 1u32
+            i = move _11
+            storage_dead(_4)
+            continue 0
+        } else {
+            break 0
+        }
+    }
+    storage_dead(_6)
+    storage_dead(_5)
+    _0 = ()
+    storage_dead(_4)
+    storage_dead(i)
+    conditional_drop[{built_in impl core::marker::Destruct::<test_crate::nested::{closure#1}<_>><'_0>}::drop_glue<'3>] f
+    ↳⚡ storage_dead(_11)
+        storage_dead(f)
+        storage_dead(n)
+        unwind_continue
+    storage_dead(_11)
+    storage_dead(f)
+    storage_dead(n)
+    return
+}
+
+// Full name: test_crate::generic::{impl FnMut<(u32,), ()> for test_crate::generic::{closure}<'_0, '_1, T>}::call_mut
+extern "rust-call" fn {impl FnMut<(u32,), ()> for test_crate::generic::{closure}<'_0, '_1, T>}::call_mut<'_0, '_1, '_2, T>(_1: &'_2 mut test_crate::generic::{closure}<'_0, '_1, T>, tupled_args: (u32,))
+where
+    TraitClause0: (T: Copy),
+    Outlives0: (T: '_0),
+    Outlives1: (T: '_1),
+    Outlives2: ('_0: '_2),
+    Outlives3: ('_1: '_2),
+    Outlives4: (T: '_2),
+{
+    let _0: (); // return
+    let _1: &'9 mut test_crate::generic::{closure}<'_0, '_1, T>; // arg #1
+    let tupled_args: (u32,); // arg #2
+    let _3: u32; // anonymous local
+    let _4: &'10 mut Vec<T>; // anonymous local
+    let _5: T; // anonymous local
+
+    storage_live(_0)
+    storage_live(_3)
+    _0 = ()
+    _3 = noretag move tupled_args._0
+    storage_live(_4)
+    _4 = &two-phase-mut (*(*_1)._0)
+    storage_live(_5)
+    _5 = copy (*(*_1)._1)
+    _0 = push<'14, T, Global>[{built_in impl Destruct for Global}](move _4, move _5)
+    ↳⚡ storage_dead(_3)
+        storage_dead(tupled_args)
+        storage_dead(_1)
+        unwind_continue
+    storage_dead(_5)
+    storage_dead(_4)
+    storage_dead(_3)
+    storage_dead(tupled_args)
+    storage_dead(_1)
+    return
+}
+
+fn test_crate::tel::<test_crate::generic::{closure}<_, _, _>><'_0, '_1, T0>(n: u32, f: test_crate::generic::{closure}<'_0, '_1, T0>)
+where
+    TraitClause0: (T0: Copy),
+    Outlives0: (T0: '_0),
+    Outlives1: (T0: '_1),
+    Outlives2: (T0: '_0),
+    Outlives3: (T0: '_1),
+{
+    let _0: (); // return
+    let n: u32; // arg #1
+    let f: test_crate::generic::{closure}<'_0, '_1, T0>; // arg #2
+    let i: u32; // local
+    let _4: bool; // anonymous local
+    let _5: u32; // anonymous local
+    let _6: u32; // anonymous local
+    let _7: (); // anonymous local
+    let _8: &'1 mut test_crate::generic::{closure}<'_0, '_1, T0>; // anonymous local
+    let _9: (u32,); // anonymous local
+    let _10: u32; // anonymous local
+    let _11: u32; // anonymous local
+
+    storage_live(_0)
+    storage_live(_11)
+    _0 = ()
+    storage_live(i)
+    i = const 0u32
+    fake_read(i)
+    loop {
+        storage_live(_4)
+        storage_live(_5)
+        _5 = copy i
+        storage_live(_6)
+        _6 = copy n
+        _4 = move _5 < move _6
+        if move _4 {
+            storage_dead(_6)
+            storage_dead(_5)
+            storage_live(_7)
+            storage_live(_8)
+            _8 = &mut f
+            storage_live(_9)
+            storage_live(_10)
+            _10 = copy i
+            _9 = (move _10,)
+            _7 = {impl FnMut<(u32,), ()> for test_crate::generic::{closure}<'_0, '_1, T>}::call_mut<'_0, '_1, '2, T0>[TraitClause0](move _8, move _9)
+            ↳⚡ conditional_drop[{built_in impl core::marker::Destruct::<test_crate::generic::{closure}<_, _, _>><'_0, '_1> for T0}::drop_glue<'4>] f
+                ↳⚡ storage_dead(_11)
+                    storage_dead(f)
+                    storage_dead(n)
+                    unwind_terminate
+                storage_dead(_11)
+                storage_dead(f)
+                storage_dead(n)
+                unwind_continue
+            storage_dead(_10)
+            storage_dead(_9)
+            storage_dead(_8)
+            storage_dead(_7)
+            _11 = copy i panic.+ const 1u32
+            i = move _11
+            storage_dead(_4)
+            continue 0
+        } else {
+            break 0
+        }
+    }
+    storage_dead(_6)
+    storage_dead(_5)
+    _0 = ()
+    storage_dead(_4)
+    storage_dead(i)
+    conditional_drop[{built_in impl core::marker::Destruct::<test_crate::generic::{closure}<_, _, _>><'_0, '_1> for T0}::drop_glue<'3>] f
+    ↳⚡ storage_dead(_11)
+        storage_dead(f)
+        storage_dead(n)
+        unwind_continue
+    storage_dead(_11)
+    storage_dead(f)
+    storage_dead(n)
+    return
+}
+
+// Full name: test_crate::two_closures
+pub fn two_closures(n: u32) -> (u32, u32)
+{
+    let _0: (u32, u32); // return
+    let n: u32; // arg #1
+    let a: u32; // local
+    let b: u32; // local
+    let k: i32; // local
+    let _5: bool; // anonymous local
+    let _6: i32; // anonymous local
+    let _7: (); // anonymous local
+    let _8: u32; // anonymous local
+    let _9: test_crate::two_closures::{closure}<'4>; // anonymous local
+    let _10: &'5 mut u32; // anonymous local
+    let _11: (); // anonymous local
+    let _12: u32; // anonymous local
+    let _13: test_crate::two_closures::{closure#1}<'8>; // anonymous local
+    let _14: &'9 mut u32; // anonymous local
+    let _15: i32; // anonymous local
+    let _16: u32; // anonymous local
+    let _17: u32; // anonymous local
+
+    storage_live(_0)
+    storage_live(_15)
+    storage_live(a)
+    a = const 0u32
+    fake_read(a)
+    storage_live(b)
+    b = const 0u32
+    fake_read(b)
+    storage_live(k)
+    k = const 0i32
+    fake_read(k)
+    loop {
+        storage_live(_5)
+        storage_live(_6)
+        _6 = copy k
+        _5 = move _6 < const 2i32
+        if move _5 {
+            storage_dead(_6)
+            storage_live(_7)
+            storage_live(_8)
+            _8 = copy n
+            storage_live(_9)
+            storage_live(_10)
+            _10 = &mut a
+            _9 = test_crate::two_closures::{closure} { _0: move _10 }
+            storage_dead(_10)
+            _7 = test_crate::tel::<test_crate::two_closures::{closure}<_>><'16>(move _8, move _9)
+            ↳⚡ storage_dead(_15)
+                storage_dead(n)
+                unwind_continue
+            storage_dead(_9)
+            storage_dead(_8)
+            storage_dead(_7)
+            storage_live(_11)
+            storage_live(_12)
+            _12 = copy n
+            storage_live(_13)
+            storage_live(_14)
+            _14 = &mut b
+            _13 = test_crate::two_closures::{closure#1} { _0: move _14 }
+            storage_dead(_14)
+            _11 = test_crate::tel::<test_crate::two_closures::{closure#1}<_>><'30>(move _12, move _13)
+            ↳⚡ storage_dead(_15)
+                storage_dead(n)
+                unwind_continue
+            storage_dead(_13)
+            storage_dead(_12)
+            storage_dead(_11)
+            _15 = copy k panic.+ const 1i32
+            k = move _15
+            storage_dead(_5)
+            continue 0
+        } else {
+            break 0
+        }
+    }
+    storage_dead(_6)
+    storage_dead(_5)
+    storage_live(_16)
+    _16 = copy a
+    storage_live(_17)
+    _17 = copy b
+    _0 = (move _16, move _17)
+    storage_dead(_17)
+    storage_dead(_16)
+    storage_dead(k)
+    storage_dead(b)
+    storage_dead(a)
+    storage_dead(_15)
+    storage_dead(n)
+    return
+}
+
+// Full name: test_crate::nested
+pub fn nested(n: u32) -> u32
+{
+    let _0: u32; // return
+    let n: u32; // arg #1
+    let c: u32; // local
+    let inner: test_crate::nested::{closure}<'4>; // local
+    let _4: &'5 mut u32; // anonymous local
+    let _5: (); // anonymous local
+    let _6: u32; // anonymous local
+    let _7: test_crate::nested::{closure#1}<'9>; // anonymous local
+
+    storage_live(_0)
+    storage_live(c)
+    c = const 0u32
+    fake_read(c)
+    storage_live(inner)
+    storage_live(_4)
+    _4 = &mut c
+    inner = test_crate::nested::{closure} { _0: move _4 }
+    storage_dead(_4)
+    fake_read(inner)
+    storage_live(_5)
+    storage_live(_6)
+    _6 = copy n
+    storage_live(_7)
+    _7 = test_crate::nested::{closure#1} { _0: move inner }
+    _5 = test_crate::tel::<test_crate::nested::{closure#1}<_>><'21>(move _6, move _7)
+    ↳⚡ storage_dead(n)
+        unwind_continue
+    storage_dead(_7)
+    storage_dead(_6)
+    storage_dead(_5)
+    _0 = copy c
+    storage_dead(inner)
+    storage_dead(c)
+    storage_dead(n)
+    return
+}
+
+// Full name: test_crate::rec
+fn rec<'_0, F>(n: u32, f: &'_0 mut F)
+where
+    TraitClause0: (F: FnMut<(u32,), ()>),
+    Outlives0: (F: '_0),
+{
+    let _0: (); // return
+    let n: u32; // arg #1
+    let f: &'1 mut F; // arg #2
+    let _3: bool; // anonymous local
+    let _4: u32; // anonymous local
+    let _5: (); // anonymous local
+    let _6: &'2 mut F; // anonymous local
+    let _7: (u32,); // anonymous local
+    let _8: u32; // anonymous local
+    let _9: u32; // anonymous local
+    let _10: u32; // anonymous local
+    let _11: u32; // anonymous local
+    let _12: &'3 mut F; // anonymous local
+
+    storage_live(_0)
+    storage_live(_11)
+    _0 = ()
+    storage_live(_3)
+    storage_live(_4)
+    _4 = copy n
+    _3 = move _4 > const 0u32
+    if move _3 {
+    } else {
+        storage_dead(_4)
+        _0 = ()
+        storage_dead(_3)
+        storage_dead(_11)
+        storage_dead(f)
+        storage_dead(n)
+        return
+    }
+    storage_dead(_4)
+    storage_live(_5)
+    storage_live(_6)
+    _6 = &mut (*f)
+    storage_live(_7)
+    storage_live(_8)
+    _8 = copy n
+    _7 = (move _8,)
+    _5 = TraitClause0::call_mut<'4>(move _6, move _7)
+    ↳⚡ storage_dead(_11)
+        storage_dead(f)
+        storage_dead(n)
+        unwind_continue
+    storage_dead(_8)
+    storage_dead(_7)
+    storage_dead(_6)
+    storage_dead(_5)
+    storage_live(_9)
+    storage_live(_10)
+    _10 = copy n
+    _11 = copy _10 panic.- const 1u32
+    _9 = move _11
+    storage_dead(_10)
+    storage_live(_12)
+    _12 = &two-phase-mut (*f)
+    _0 = rec<'6, F>[TraitClause0](move _9, move _12)
+    ↳⚡ storage_dead(_11)
+        storage_dead(f)
+        storage_dead(n)
+        unwind_continue
+    storage_dead(_12)
+    storage_dead(_9)
+    storage_dead(_3)
+    storage_dead(_11)
+    storage_dead(f)
+    storage_dead(n)
+    return
+}
+
+struct test_crate::use_rec::{closure}<mut '_0> {
+  _0: &'_0 mut u32,
+}
+
+// Full name: test_crate::use_rec::{impl FnMut<(u32,), ()> for test_crate::use_rec::{closure}<'_0>}::call_mut
+extern "rust-call" fn {impl FnMut<(u32,), ()> for test_crate::use_rec::{closure}<'_0>}::call_mut<'_0, '_1>(_1: &'_1 mut test_crate::use_rec::{closure}<'_0>, tupled_args: (u32,))
+where
+    Outlives0: ('_0: '_1),
+{
+    let _0: (); // return
+    let _1: &'5 mut test_crate::use_rec::{closure}<'_0>; // arg #1
+    let tupled_args: (u32,); // arg #2
+    let i: u32; // local
+    let _4: u32; // anonymous local
+    let _5: u32; // anonymous local
+
+    storage_live(_0)
+    storage_live(i)
+    storage_live(_5)
+    _0 = ()
+    i = noretag move tupled_args._0
+    storage_live(_4)
+    _4 = copy i
+    _5 = copy (*(*_1)._0) panic.+ copy _4
+    (*(*_1)._0) = move _5
+    _0 = ()
+    storage_dead(_4)
+    storage_dead(_5)
+    storage_dead(i)
+    storage_dead(tupled_args)
+    storage_dead(_1)
+    return
+}
+
+fn test_crate::rec::<_, test_crate::use_rec::{closure}<_>><'_0, '_1>(n: u32, f: &'_0 mut test_crate::use_rec::{closure}<'_1>)
+where
+    Outlives0: (test_crate::use_rec::{closure}<'_1>: '_0),
+{
+    let _0: (); // return
+    let n: u32; // arg #1
+    let f: &'1 mut test_crate::use_rec::{closure}<'_1>; // arg #2
+    let _3: bool; // anonymous local
+    let _4: u32; // anonymous local
+    let _5: (); // anonymous local
+    let _6: &'2 mut test_crate::use_rec::{closure}<'_1>; // anonymous local
+    let _7: (u32,); // anonymous local
+    let _8: u32; // anonymous local
+    let _9: u32; // anonymous local
+    let _10: u32; // anonymous local
+    let _11: u32; // anonymous local
+    let _12: &'3 mut test_crate::use_rec::{closure}<'_1>; // anonymous local
+
+    storage_live(_0)
+    storage_live(_11)
+    _0 = ()
+    storage_live(_3)
+    storage_live(_4)
+    _4 = copy n
+    _3 = move _4 > const 0u32
+    if move _3 {
+    } else {
+        storage_dead(_4)
+        _0 = ()
+        storage_dead(_3)
+        storage_dead(_11)
+        storage_dead(f)
+        storage_dead(n)
+        return
+    }
+    storage_dead(_4)
+    storage_live(_5)
+    storage_live(_6)
+    _6 = &mut (*f)
+    storage_live(_7)
+    storage_live(_8)
+    _8 = copy n
+    _7 = (move _8,)
+    _5 = {impl FnMut<(u32,), ()> for test_crate::use_rec::{closure}<'_0>}::call_mut<'_1, '4>(move _6, move _7)
+    ↳⚡ storage_dead(_11)
+        storage_dead(f)
+        storage_dead(n)
+        unwind_continue
+    storage_dead(_8)
+    storage_dead(_7)
+    storage_dead(_6)
+    storage_dead(_5)
+    storage_live(_9)
+    storage_live(_10)
+    _10 = copy n
+    _11 = copy _10 panic.- const 1u32
+    _9 = move _11
+    storage_dead(_10)
+    storage_live(_12)
+    _12 = &two-phase-mut (*f)
+    _0 = test_crate::rec::<_, test_crate::use_rec::{closure}<_>><'6, '_1>(move _9, move _12)
+    ↳⚡ storage_dead(_11)
+        storage_dead(f)
+        storage_dead(n)
+        unwind_continue
+    storage_dead(_12)
+    storage_dead(_9)
+    storage_dead(_3)
+    storage_dead(_11)
+    storage_dead(f)
+    storage_dead(n)
+    return
+}
+
+// Full name: test_crate::use_rec
+pub fn use_rec(n: u32) -> u32
+{
+    let _0: u32; // return
+    let n: u32; // arg #1
+    let s: u32; // local
+    let _3: (); // anonymous local
+    let _4: u32; // anonymous local
+    let _5: &'6 mut test_crate::use_rec::{closure}<'7>; // anonymous local
+    let _6: &'8 mut test_crate::use_rec::{closure}<'9>; // anonymous local
+    let _7: test_crate::use_rec::{closure}<'10>; // anonymous local
+    let _8: &'11 mut u32; // anonymous local
+
+    storage_live(_0)
+    storage_live(s)
+    s = const 0u32
+    fake_read(s)
+    storage_live(_3)
+    storage_live(_4)
+    _4 = copy n
+    storage_live(_5)
+    storage_live(_6)
+    storage_live(_7)
+    storage_live(_8)
+    _8 = &mut s
+    _7 = test_crate::use_rec::{closure} { _0: move _8 }
+    storage_dead(_8)
+    _6 = &mut _7
+    _5 = &two-phase-mut (*_6)
+    _3 = test_crate::rec::<_, test_crate::use_rec::{closure}<_>><'28, '19>(move _4, move _5)
+    ↳⚡ storage_dead(n)
+        unwind_continue
+    storage_dead(_5)
+    storage_dead(_4)
+    storage_dead(_7)
+    storage_dead(_6)
+    storage_dead(_3)
+    _0 = copy s
+    storage_dead(s)
+    storage_dead(n)
+    return
+}
+
+// Full name: test_crate::once
+fn once<G>(g: G) -> u32
+where
+    TraitClause0: (G: FnOnce<(u32,), u32>),
+{
+    let _0: u32; // return
+    let g: G; // arg #1
+    let _2: G; // anonymous local
+    let _3: (u32,); // anonymous local
+
+    storage_live(_0)
+    storage_live(_2)
+    _2 = move g
+    storage_live(_3)
+    _3 = (const 7u32,)
+    _0 = TraitClause0::call_once(move _2, move _3)
+    ↳⚡ conditional_drop[{built_in impl Destruct for G}::drop_glue<'0>] _2
+        ↳⚡ storage_dead(g)
+            unwind_terminate
+        conditional_drop[{built_in impl Destruct for G}::drop_glue<'2>] g
+        ↳⚡ storage_dead(g)
+            unwind_terminate
+        storage_dead(g)
+        unwind_continue
+    storage_dead(_3)
+    storage_dead(_2)
+    conditional_drop[{built_in impl Destruct for G}::drop_glue<'1>] g
+    ↳⚡ storage_dead(g)
+        unwind_continue
+    storage_dead(g)
+    return
+}
+
+// Full name: test_crate::use_through::{impl FnMut<(u32,), u32> for test_crate::use_through::{closure}<'_0>}::call_mut
+extern "rust-call" fn {impl FnMut<(u32,), u32> for test_crate::use_through::{closure}<'_0>}::call_mut<'_0, '_1>(_1: &'_1 mut test_crate::use_through::{closure}<'_0>, tupled_args: (u32,)) -> u32
+where
+    Outlives0: ('_0: '_1),
+{
+    let _0: u32; // return
+    let _1: &'5 mut test_crate::use_through::{closure}<'_0>; // arg #1
+    let tupled_args: (u32,); // arg #2
+    let i: u32; // local
+    let _4: u32; // anonymous local
+    let _5: u32; // anonymous local
+
+    storage_live(_0)
+    storage_live(i)
+    storage_live(_5)
+    i = noretag move tupled_args._0
+    storage_live(_4)
+    _4 = copy i
+    _5 = copy (*(*_1)._0) panic.+ copy _4
+    (*(*_1)._0) = move _5
+    storage_dead(_4)
+    _0 = copy (*(*_1)._0)
+    storage_dead(_5)
+    storage_dead(i)
+    storage_dead(tupled_args)
+    storage_dead(_1)
+    return
+}
+
+// Full name: test_crate::use_through::{impl FnOnce<(u32,), u32> for test_crate::use_through::{closure}<'_0>}::call_once
+extern "rust-call" fn {impl FnOnce<(u32,), u32> for test_crate::use_through::{closure}<'_0>}::call_once<'_0>(_1: test_crate::use_through::{closure}<'_0>, _2: (u32,)) -> u32
+{
+    let _0: u32; // return
+    let _1: test_crate::use_through::{closure}<'_0>; // arg #1
+    let _2: (u32,); // arg #2
+    let _3: &'5 mut test_crate::use_through::{closure}<'_0>; // anonymous local
+
+    storage_live(_0)
+    storage_live(_3)
+    _3 = &mut _1
+    _0 = {impl FnMut<(u32,), u32> for test_crate::use_through::{closure}<'_0>}::call_mut<'_0, '12>(move _3, move _2)
+    ↳⚡ storage_dead(_3)
+        storage_dead(_2)
+        storage_dead(_1)
+        unwind_continue
+    storage_dead(_3)
+    storage_dead(_2)
+    storage_dead(_1)
+    return
+}
+
+fn test_crate::once::<test_crate::use_through::{closure}<_>><'_0>(g: test_crate::use_through::{closure}<'_0>) -> u32
+{
+    let _0: u32; // return
+    let g: test_crate::use_through::{closure}<'_0>; // arg #1
+    let _2: test_crate::use_through::{closure}<'_0>; // anonymous local
+    let _3: (u32,); // anonymous local
+
+    storage_live(_0)
+    storage_live(_2)
+    _2 = move g
+    storage_live(_3)
+    _3 = (const 7u32,)
+    _0 = {impl FnOnce<(u32,), u32> for test_crate::use_through::{closure}<'_0>}::call_once<'_0>(move _2, move _3)
+    ↳⚡ conditional_drop[{built_in impl core::marker::Destruct::<test_crate::use_through::{closure}<_>><'_0>}::drop_glue<'0>] _2
+        ↳⚡ storage_dead(g)
+            unwind_terminate
+        conditional_drop[{built_in impl core::marker::Destruct::<test_crate::use_through::{closure}<_>><'_0>}::drop_glue<'2>] g
+        ↳⚡ storage_dead(g)
+            unwind_terminate
+        storage_dead(g)
+        unwind_continue
+    storage_dead(_3)
+    storage_dead(_2)
+    conditional_drop[{built_in impl core::marker::Destruct::<test_crate::use_through::{closure}<_>><'_0>}::drop_glue<'1>] g
+    ↳⚡ storage_dead(g)
+        unwind_continue
+    storage_dead(g)
+    return
+}
+
+// Full name: test_crate::through
+fn through<F>(f: F) -> u32
+where
+    TraitClause0: (F: FnMut<(u32,), u32>),
+{
+    let _0: u32; // return
+    let f: F; // arg #1
+    let _2: u32; // anonymous local
+    let _3: &'1 mut F; // anonymous local
+    let _4: (u32,); // anonymous local
+    let _5: F; // anonymous local
+
+    storage_live(_0)
+    storage_live(_2)
+    storage_live(_3)
+    _3 = &mut f
+    storage_live(_4)
+    _4 = (const 1u32,)
+    _2 = TraitClause0::call_mut<'2>(move _3, move _4)
+    ↳⚡ conditional_drop[{built_in impl Destruct for F}::drop_glue<'3>] f
+        ↳⚡ storage_dead(f)
+            unwind_terminate
+        storage_dead(f)
+        unwind_continue
+    storage_dead(_4)
+    storage_dead(_3)
+    storage_dead(_2)
+    storage_live(_5)
+    _5 = move f
+    _0 = once<F>[TraitClause0::ImpliedClause0](move _5)
+    ↳⚡ conditional_drop[{built_in impl Destruct for F}::drop_glue<'4>] _5
+        ↳⚡ storage_dead(f)
+            unwind_terminate
+        conditional_drop[{built_in impl Destruct for F}::drop_glue<'3>] f
+        ↳⚡ storage_dead(f)
+            unwind_terminate
+        storage_dead(f)
+        unwind_continue
+    storage_dead(_5)
+    conditional_drop[{built_in impl Destruct for F}::drop_glue<'5>] f
+    ↳⚡ storage_dead(f)
+        unwind_continue
+    storage_dead(f)
+    return
+}
+
+fn test_crate::through::<test_crate::use_through::{closure}<_>><'_0>(f: test_crate::use_through::{closure}<'_0>) -> u32
+{
+    let _0: u32; // return
+    let f: test_crate::use_through::{closure}<'_0>; // arg #1
+    let _2: u32; // anonymous local
+    let _3: &'1 mut test_crate::use_through::{closure}<'_0>; // anonymous local
+    let _4: (u32,); // anonymous local
+    let _5: test_crate::use_through::{closure}<'_0>; // anonymous local
+
+    storage_live(_0)
+    storage_live(_2)
+    storage_live(_3)
+    _3 = &mut f
+    storage_live(_4)
+    _4 = (const 1u32,)
+    _2 = {impl FnMut<(u32,), u32> for test_crate::use_through::{closure}<'_0>}::call_mut<'_0, '2>(move _3, move _4)
+    ↳⚡ conditional_drop[{built_in impl core::marker::Destruct::<test_crate::use_through::{closure}<_>><'_0>}::drop_glue<'3>] f
+        ↳⚡ storage_dead(f)
+            unwind_terminate
+        storage_dead(f)
+        unwind_continue
+    storage_dead(_4)
+    storage_dead(_3)
+    storage_dead(_2)
+    storage_live(_5)
+    _5 = move f
+    _0 = test_crate::once::<test_crate::use_through::{closure}<_>><'_0>(move _5)
+    ↳⚡ conditional_drop[{built_in impl core::marker::Destruct::<test_crate::use_through::{closure}<_>><'_0>}::drop_glue<'4>] _5
+        ↳⚡ storage_dead(f)
+            unwind_terminate
+        conditional_drop[{built_in impl core::marker::Destruct::<test_crate::use_through::{closure}<_>><'_0>}::drop_glue<'3>] f
+        ↳⚡ storage_dead(f)
+            unwind_terminate
+        storage_dead(f)
+        unwind_continue
+    storage_dead(_5)
+    conditional_drop[{built_in impl core::marker::Destruct::<test_crate::use_through::{closure}<_>><'_0>}::drop_glue<'5>] f
+    ↳⚡ storage_dead(f)
+        unwind_continue
+    storage_dead(f)
+    return
+}
+
+// Full name: test_crate::use_through
+pub fn use_through<'_0>(x: &'_0 mut u32) -> u32
+{
+    let _0: u32; // return
+    let x: &'1 mut u32; // arg #1
+    let _2: test_crate::use_through::{closure}<'5>; // anonymous local
+    let _3: &'6 mut u32; // anonymous local
+
+    storage_live(_0)
+    storage_live(_2)
+    storage_live(_3)
+    _3 = &uniq (*x)
+    _2 = test_crate::use_through::{closure} { _0: move _3 }
+    storage_dead(_3)
+    _0 = test_crate::through::<test_crate::use_through::{closure}<_>><'13>(move _2)
+    ↳⚡ storage_dead(x)
+        unwind_continue
+    storage_dead(_2)
+    storage_dead(x)
+    return
+}
+
+// Full name: test_crate::generic
+pub fn generic<'_0, T>(v: &'_0 mut Vec<T>, x: T, n: u32)
+where
+    TraitClause0: (T: Copy),
+    Outlives0: (T: '_0),
+{
+    let _0: (); // return
+    let v: &'1 mut Vec<T>; // arg #1
+    let x: T; // arg #2
+    let n: u32; // arg #3
+    let _4: (); // anonymous local
+    let _5: u32; // anonymous local
+    let _6: test_crate::generic::{closure}<'9, '10, T>; // anonymous local
+    let _7: &'11 mut Vec<T>; // anonymous local
+    let _8: &'12 T; // anonymous local
+
+    storage_live(_0)
+    _0 = ()
+    storage_live(_4)
+    storage_live(_5)
+    _5 = copy n
+    storage_live(_6)
+    storage_live(_7)
+    _7 = &uniq (*v)
+    storage_live(_8)
+    _8 = &x
+    _6 = test_crate::generic::{closure} { _0: move _7, _1: move _8 }
+    storage_dead(_8)
+    storage_dead(_7)
+    _4 = test_crate::tel::<test_crate::generic::{closure}<_, _, _>><'25, '26, T>[TraitClause0](move _5, move _6)
+    ↳⚡ storage_dead(n)
+        storage_dead(x)
+        storage_dead(v)
+        unwind_continue
+    storage_dead(_6)
+    storage_dead(_5)
+    storage_dead(_4)
+    _0 = ()
+    storage_dead(n)
+    storage_dead(x)
+    storage_dead(v)
+    return
+}
+
+
+

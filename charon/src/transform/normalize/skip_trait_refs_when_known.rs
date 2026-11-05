@@ -84,9 +84,21 @@ fn normalize_method_call(ctx: &TransformCtx, fn_ptr: &FnPtr) -> Option<FnPtr> {
         }
     };
 
-    let trait_impl = &ctx.translated.trait_impls.get(impl_ref.id)?;
+    let trait_impl = ctx.translated.trait_impls.get(impl_ref.id)?;
+    impl_method_call(trait_impl, impl_ref, *method_id, method_generics)
+}
+
+/// The direct call to the method `method_id` of the impl `impl_ref`, given the arguments of the
+/// method's own binder. Impl arguments and method arguments are separate, so this stays valid
+/// after associated-type lifting, which extends both consistently.
+pub(crate) fn impl_method_call(
+    trait_impl: &TraitImpl,
+    impl_ref: &TraitImplRef,
+    method_id: TraitMethodId,
+    method_generics: &GenericArgs,
+) -> Option<FnPtr> {
     // Find the function declaration corresponding to this impl.
-    let bound_fn = trait_impl.methods.get(*method_id)?;
+    let bound_fn = trait_impl.methods.get(method_id)?;
     if !method_generics.matches(&bound_fn.params) {
         return None;
     }
