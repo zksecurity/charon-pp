@@ -1,0 +1,445 @@
+# Final LLBC before serialization:
+
+// Full name: core::marker::MetaSized
+#[fundamental]
+#[lang_item(MetaSized)]
+pub trait MetaSized<Self>
+
+// Full name: core::marker::Sized
+#[fundamental]
+#[lang_item(Sized)]
+pub trait Sized<Self>
+{
+    proof ImpliedClause0: (Self: MetaSized)
+    non-dyn-compatible
+}
+
+#[fundamental]
+#[lang_item(MetaSized)]
+pub trait core::marker::MetaSized::<Mut<_>><'_0>
+
+#[fundamental]
+#[lang_item(Sized)]
+pub trait core::marker::Sized::<Mut<_>><'_0>
+{
+    proof ImpliedClause0: (core::marker::MetaSized::<Mut<_>><'_0>)
+    non-dyn-compatible
+}
+
+struct () {}
+
+// Full name: test_crate::Counter
+trait Counter<Self>
+{
+    proof ImpliedClause0: (Self: MetaSized)
+    fn get<'_0_1>;
+    fn twice<'_0_1> = test_crate::Counter::twice<'_0_1, Self>[Self]
+    fn thrice<'_0_1> = test_crate::Counter::thrice<'_0_1, Self>[Self]
+    vtable: test_crate::Counter::{vtable}
+}
+
+// Full name: test_crate::Mut
+struct Mut<mut 'a> {
+  _0: &'a mut u32,
+}
+
+trait test_crate::Counter::<Mut<_>><'_0>
+{
+    proof ImpliedClause0: (core::marker::MetaSized::<Mut<_>><'_0>)
+    fn get<'_0_1>;
+    fn twice<'_0_1> = test_crate::Counter::twice::<_, Mut<_>><'_0_1, '_0>[Self]
+    vtable: test_crate::Counter::{vtable}
+}
+
+fn test_crate::Counter::twice<'_0, Self>(self: &'_0 mut Self) -> u32
+where
+    TraitClause0: (Self: Counter),
+    Outlives0: (Self: '_0),
+{
+    let _0: u32; // return
+    let self: &'1 mut Self; // arg #1
+    let _2: u32; // anonymous local
+    let _3: &'2 mut Self; // anonymous local
+    let _4: u32; // anonymous local
+    let _5: &'3 mut Self; // anonymous local
+    let _6: u32; // anonymous local
+
+    storage_live(_0)
+    storage_live(_6)
+    storage_live(_2)
+    storage_live(_3)
+    _3 = &two-phase-mut (*self) with_metadata(copy self.metadata)
+    _2 = TraitClause0::get<'4>(move _3)
+    ↳⚡ storage_dead(_6)
+        storage_dead(self)
+        unwind_continue
+    storage_dead(_3)
+    storage_live(_4)
+    storage_live(_5)
+    _5 = &two-phase-mut (*self) with_metadata(copy self.metadata)
+    _4 = TraitClause0::get<'5>(move _5)
+    ↳⚡ storage_dead(_6)
+        storage_dead(self)
+        unwind_continue
+    storage_dead(_5)
+    _6 = copy _2 panic.+ copy _4
+    _0 = move _6
+    storage_dead(_4)
+    storage_dead(_2)
+    storage_dead(_6)
+    storage_dead(self)
+    return
+}
+
+fn test_crate::Counter::twice::<_, Mut<_>><'_0, '_1>(self: &'_0 mut Mut<'_1>) -> u32
+where
+    TraitClause0: (test_crate::Counter::<Mut<_>><'_1>),
+    Outlives0: (Mut<'_1>: '_0),
+{
+    let _0: u32; // return
+    let self: &'1 mut Mut<'_1>; // arg #1
+    let _2: u32; // anonymous local
+    let _3: &'2 mut Mut<'_1>; // anonymous local
+    let _4: u32; // anonymous local
+    let _5: &'3 mut Mut<'_1>; // anonymous local
+    let _6: u32; // anonymous local
+
+    storage_live(_0)
+    storage_live(_6)
+    storage_live(_2)
+    storage_live(_3)
+    _3 = &two-phase-mut (*self) with_metadata(copy self.metadata)
+    _2 = TraitClause0::get<'4>(move _3)
+    ↳⚡ storage_dead(_6)
+        storage_dead(self)
+        unwind_continue
+    storage_dead(_3)
+    storage_live(_4)
+    storage_live(_5)
+    _5 = &two-phase-mut (*self) with_metadata(copy self.metadata)
+    _4 = TraitClause0::get<'5>(move _5)
+    ↳⚡ storage_dead(_6)
+        storage_dead(self)
+        unwind_continue
+    storage_dead(_5)
+    _6 = copy _2 panic.+ copy _4
+    _0 = move _6
+    storage_dead(_4)
+    storage_dead(_2)
+    storage_dead(_6)
+    storage_dead(self)
+    return
+}
+
+fn test_crate::Counter::thrice<'_0, Self>(self: &'_0 mut Self) -> u32
+where
+    TraitClause0: (Self: Counter),
+    Outlives0: (Self: '_0),
+{
+    let _0: u32; // return
+    let self: &'1 mut Self; // arg #1
+    let _2: u32; // anonymous local
+    let _3: &'2 mut Self; // anonymous local
+    let _4: u32; // anonymous local
+
+    storage_live(_0)
+    storage_live(_4)
+    storage_live(_2)
+    storage_live(_3)
+    _3 = &two-phase-mut (*self) with_metadata(copy self.metadata)
+    _2 = TraitClause0::get<'3>(move _3)
+    ↳⚡ storage_dead(_4)
+        storage_dead(self)
+        unwind_continue
+    storage_dead(_3)
+    _4 = copy _2 panic.* const 3u32
+    _0 = move _4
+    storage_dead(_2)
+    storage_dead(_4)
+    storage_dead(self)
+    return
+}
+
+// Full name: test_crate::Shared
+struct Shared {
+  _0: u32,
+}
+
+// Full name: test_crate::{impl Counter for Shared}::get
+fn impl_Counter_for_Shared::get<'_0>(self: &'_0 mut Shared) -> u32
+{
+    let _0: u32; // return
+    let self: &'1 mut Shared; // arg #1
+
+    storage_live(_0)
+    _0 = copy (*self)._0
+    storage_dead(self)
+    return
+}
+
+// Full name: test_crate::{impl Counter for Shared}::thrice
+fn impl_Counter_for_Shared::thrice<'_0>(self: &'_0 mut Shared) -> u32
+{
+    let _0: u32; // return
+    let self: &'1 mut Shared; // arg #1
+    let _2: u32; // anonymous local
+    let _3: &'2 mut Shared; // anonymous local
+    let _4: u32; // anonymous local
+
+    storage_live(_0)
+    storage_live(_4)
+    storage_live(_2)
+    storage_live(_3)
+    _3 = &two-phase-mut (*self)
+    _2 = impl_Counter_for_Shared::get<'3>(move _3)
+    ↳⚡ storage_dead(_4)
+        storage_dead(self)
+        unwind_continue
+    storage_dead(_3)
+    _4 = copy _2 panic.* const 3u32
+    _0 = move _4
+    storage_dead(_2)
+    storage_dead(_4)
+    storage_dead(self)
+    return
+}
+
+// Full name: test_crate::{impl Counter for Shared}::twice
+fn impl_Counter_for_Shared::twice<'_0>(self: &'_0 mut Shared) -> u32
+{
+    let _0: u32; // return
+    let self: &'1 mut Shared; // arg #1
+    let _2: u32; // anonymous local
+    let _3: &'2 mut Shared; // anonymous local
+    let _4: u32; // anonymous local
+    let _5: &'3 mut Shared; // anonymous local
+    let _6: u32; // anonymous local
+
+    storage_live(_0)
+    storage_live(_6)
+    storage_live(_2)
+    storage_live(_3)
+    _3 = &two-phase-mut (*self)
+    _2 = impl_Counter_for_Shared::get<'4>(move _3)
+    ↳⚡ storage_dead(_6)
+        storage_dead(self)
+        unwind_continue
+    storage_dead(_3)
+    storage_live(_4)
+    storage_live(_5)
+    _5 = &two-phase-mut (*self)
+    _4 = impl_Counter_for_Shared::get<'5>(move _5)
+    ↳⚡ storage_dead(_6)
+        storage_dead(self)
+        unwind_continue
+    storage_dead(_5)
+    _6 = copy _2 panic.+ copy _4
+    _0 = move _6
+    storage_dead(_4)
+    storage_dead(_2)
+    storage_dead(_6)
+    storage_dead(self)
+    return
+}
+
+// Full name: test_crate::{impl Counter for Shared}
+impl "impl_Counter_for_Shared" Counter for Shared {
+    proof ImpliedClause0: (Shared: MetaSized) = {built_in impl MetaSized for Shared}
+    fn get<'_0_1> = impl_Counter_for_Shared::get<'_0_1>
+    fn twice<'_0_1> = impl_Counter_for_Shared::twice<'_0_1>
+    fn thrice<'_0_1> = impl_Counter_for_Shared::thrice<'_0_1>
+    vtable: lazy
+}
+
+// Full name: test_crate::{impl test_crate::Counter::<Mut<_>><'a>}::get
+fn impl_Counter_for_Mut::get<'a, '_1>(self: &'_1 mut Mut<'a>) -> u32
+where
+    Outlives0: ('a: '_1),
+{
+    let _0: u32; // return
+    let self: &'3 mut Mut<'4>; // arg #1
+    let _2: u32; // anonymous local
+
+    storage_live(_0)
+    storage_live(_2)
+    _2 = copy (*(*self)._0) panic.+ const 1u32
+    (*(*self)._0) = move _2
+    _0 = copy (*(*self)._0)
+    storage_dead(_2)
+    storage_dead(self)
+    return
+}
+
+// Full name: test_crate::{impl test_crate::Counter::<Mut<_>><'a>}::twice
+fn impl_Counter_for_Mut::twice<'a, '_1>(self: &'_1 mut Mut<'a>) -> u32
+where
+    Outlives0: ('a: '_1),
+{
+    let _0: u32; // return
+    let self: &'1 mut Mut<'a>; // arg #1
+    let _2: u32; // anonymous local
+    let _3: &'2 mut Mut<'a>; // anonymous local
+    let _4: u32; // anonymous local
+    let _5: &'3 mut Mut<'a>; // anonymous local
+    let _6: u32; // anonymous local
+
+    storage_live(_0)
+    storage_live(_6)
+    storage_live(_2)
+    storage_live(_3)
+    _3 = &two-phase-mut (*self)
+    _2 = impl_Counter_for_Mut::get<'a, '4>(move _3)
+    ↳⚡ storage_dead(_6)
+        storage_dead(self)
+        unwind_continue
+    storage_dead(_3)
+    storage_live(_4)
+    storage_live(_5)
+    _5 = &two-phase-mut (*self)
+    _4 = impl_Counter_for_Mut::get<'a, '5>(move _5)
+    ↳⚡ storage_dead(_6)
+        storage_dead(self)
+        unwind_continue
+    storage_dead(_5)
+    _6 = copy _2 panic.+ copy _4
+    _0 = move _6
+    storage_dead(_4)
+    storage_dead(_2)
+    storage_dead(_6)
+    storage_dead(self)
+    return
+}
+
+// Full name: test_crate::{impl test_crate::Counter::<Mut<_>><'a>}
+impl<'a> "impl_Counter_for_Mut" test_crate::Counter::<Mut<_>><'a> {
+    proof ImpliedClause0: (core::marker::MetaSized::<Mut<_>><'a>) = {built_in impl core::marker::MetaSized::<Mut<_>><'a>}
+    fn get<'_0_1> = impl_Counter_for_Mut::get<'a, '_0_1>
+    fn twice<'_0_1> = impl_Counter_for_Mut::twice<'a, '_0_1>
+    vtable: lazy
+}
+
+// Full name: test_crate::use_thrice
+fn use_thrice<'_0, C>(c: &'_0 mut C) -> u32
+where
+    TraitClause0: (C: Sized),
+    TraitClause1: (C: Counter),
+    Outlives0: (C: '_0),
+{
+    let _0: u32; // return
+    let c: &'1 mut C; // arg #1
+    let _2: &'2 mut C; // anonymous local
+
+    storage_live(_0)
+    storage_live(_2)
+    _2 = &two-phase-mut (*c)
+    _0 = TraitClause1::thrice<'3>(move _2)
+    ↳⚡ storage_dead(c)
+        unwind_continue
+    storage_dead(_2)
+    storage_dead(c)
+    return
+}
+
+// Full name: test_crate::use_twice
+fn use_twice<'_0, C>(c: &'_0 mut C) -> u32
+where
+    TraitClause0: (C: Sized),
+    TraitClause1: (C: Counter),
+    Outlives0: (C: '_0),
+{
+    let _0: u32; // return
+    let c: &'1 mut C; // arg #1
+    let _2: &'2 mut C; // anonymous local
+
+    storage_live(_0)
+    storage_live(_2)
+    _2 = &two-phase-mut (*c)
+    _0 = TraitClause1::twice<'3>(move _2)
+    ↳⚡ storage_dead(c)
+        unwind_continue
+    storage_dead(_2)
+    storage_dead(c)
+    return
+}
+
+fn test_crate::use_twice::<_, Mut<_>><'_0, '_1>(c: &'_0 mut Mut<'_1>) -> u32
+where
+    TraitClause0: (core::marker::Sized::<Mut<_>><'_1>),
+    TraitClause1: (test_crate::Counter::<Mut<_>><'_1>),
+    Outlives0: (Mut<'_1>: '_0),
+{
+    let _0: u32; // return
+    let c: &'1 mut Mut<'_1>; // arg #1
+    let _2: &'2 mut Mut<'_1>; // anonymous local
+
+    storage_live(_0)
+    storage_live(_2)
+    _2 = &two-phase-mut (*c)
+    _0 = TraitClause1::twice<'3>(move _2)
+    ↳⚡ storage_dead(c)
+        unwind_continue
+    storage_dead(_2)
+    storage_dead(c)
+    return
+}
+
+// Full name: test_crate::f
+pub fn f<'_0>(x: &'_0 mut u32) -> u32
+{
+    let _0: u32; // return
+    let x: &'1 mut u32; // arg #1
+    let _2: u32; // anonymous local
+    let _3: &'3 mut Shared; // anonymous local
+    let _4: &'4 mut Shared; // anonymous local
+    let _5: Shared; // anonymous local
+    let _6: u32; // anonymous local
+    let _7: &'8 mut Mut<'9>; // anonymous local
+    let _8: &'10 mut Mut<'11>; // anonymous local
+    let _9: Mut<'12>; // anonymous local
+    let _10: &'13 mut u32; // anonymous local
+    let _11: u32; // anonymous local
+
+    storage_live(_0)
+    storage_live(_11)
+    storage_live(_2)
+    storage_live(_3)
+    storage_live(_4)
+    storage_live(_5)
+    _5 = Shared { _0: const 1u32 }
+    _4 = &mut _5
+    _3 = &two-phase-mut (*_4)
+    _2 = use_thrice<'15, Shared>[{built_in impl Sized for Shared}, impl_Counter_for_Shared](move _3)
+    ↳⚡ storage_dead(_11)
+        storage_dead(x)
+        unwind_continue
+    storage_dead(_3)
+    storage_live(_6)
+    storage_live(_7)
+    storage_live(_8)
+    storage_live(_9)
+    storage_live(_10)
+    _10 = &two-phase-mut (*x)
+    _9 = Mut { _0: move _10 }
+    storage_dead(_10)
+    _8 = &mut _9
+    _7 = &two-phase-mut (*_8)
+    _6 = test_crate::use_twice::<_, Mut<_>><'30, '19>[{built_in impl core::marker::Sized::<Mut<_>><'19>}, impl_Counter_for_Mut<'19>](move _7)
+    ↳⚡ storage_dead(_11)
+        storage_dead(x)
+        unwind_continue
+    storage_dead(_7)
+    _11 = copy _2 panic.+ copy _6
+    _0 = move _11
+    storage_dead(_6)
+    storage_dead(_2)
+    storage_dead(_9)
+    storage_dead(_8)
+    storage_dead(_5)
+    storage_dead(_4)
+    storage_dead(_11)
+    storage_dead(x)
+    return
+}
+
+
+

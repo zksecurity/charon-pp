@@ -951,5 +951,12 @@ impl TransformPass for Transform {
             // Put the item back.
             visitor.ctx.translated.put_item_back(id, decl);
         }
+        // An instantiated trait declaration gets all the methods of the declaration it
+        // instantiates, including the ones only its other instantiations use.
+        if !ctx.options.translate_all_methods {
+            crate::transform::simplify_output::remove_unmentioned_methods::remove_unmentioned_methods(
+                &mut ctx.translated,
+            );
+        }
     }
 }

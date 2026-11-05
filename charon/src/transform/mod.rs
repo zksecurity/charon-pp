@@ -63,6 +63,7 @@ pub mod simplify_output {
     pub mod remove_adt_clauses;
     pub mod remove_nops;
     pub mod remove_unit_locals;
+    pub mod remove_unmentioned_methods;
     pub mod remove_unused_clauses;
     pub mod remove_unused_locals;
     pub mod simplify_constants;
