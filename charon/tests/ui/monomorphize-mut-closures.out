@@ -151,28 +151,6 @@ pub trait FnMut<Self, Args, Self_Clause0_Output>
     vtable: core::ops::function::FnMut::{vtable}<Args, Self_Clause0_Output>
 }
 
-struct (_, _)<A, B> {
-  _0: A,
-  _1: B,
-}
-
-#[fundamental]
-#[lang_item(FnOnce)]
-pub trait core::ops::function::FnOnce::<_, (&_ mut Eng<_>, _), _><'_0, '_1, T0, T1, T2>
-{
-    fn call_once;
-    vtable: core::ops::function::FnOnce::{vtable}<(&'_0 mut Eng<'_1>, T1), T2>
-}
-
-#[fundamental]
-#[lang_item(FnMut)]
-pub trait core::ops::function::FnMut::<_, (&_ mut Eng<_>, _), _><'_0, '_1, T0, T1, T2>
-{
-    proof ImpliedClause0: (T0: core::ops::function::FnOnce::<_, (&_ mut Eng<_>, _), _><'_0, '_1, T1, T2>)
-    fn call_mut<'_0_1>;
-    vtable: core::ops::function::FnMut::{vtable}<(&'_0 mut Eng<'_1>, T1), T2>
-}
-
 // Full name: core::option::Option
 #[lang_item(Option)]
 #[diagnostic_item("Option")]
@@ -305,10 +283,15 @@ where
     Outlives1: (A: '_0),
 = <opaque>
 
+struct (_, _)<A, B> {
+  _0: A,
+  _1: B,
+}
+
 // Full name: test_crate::{Eng<'a>}::telescope
 fn telescope<'a, '_1, T1>(self: &'_1 mut Eng<'a>, n: u32, next: T1) -> u32
 where
-    TraitClause0: for<'_0_1> (T1: core::ops::function::FnMut::<_, (&_ mut Eng<_>, _), _><'_0_1, 'a, u32, bool>),
+    TraitClause0: for<'_0_1> (T1: FnMut<(&'_0_1 mut Eng<'a>, u32), bool>),
     Outlives0: ('a: '_1),
 {
     let _0: u32; // return
@@ -665,6 +648,135 @@ where
     storage_dead(_4)
     storage_dead(_3)
     storage_dead(o)
+    storage_dead(self)
+    return
+}
+
+// Full name: test_crate::{Eng<'a>}::guarded
+fn guarded<'a, '_1, T, T2>(self: &'_1 mut Eng<'a>, f: T2) -> T
+where
+    TraitClause0: for<'_0_1> (T2: FnOnce<(&'_0_1 mut Eng<'a>,), T>),
+    Outlives0: ('a: '_1),
+{
+    let _0: T; // return
+    let self: &'3 mut Eng<'4>; // arg #1
+    let f: T2; // arg #2
+    let _3: u32; // anonymous local
+    let _4: T2; // anonymous local
+    let _5: (&'7 mut Eng<'8>,); // anonymous local
+    let _6: &'9 mut Eng<'10>; // anonymous local
+
+    storage_live(_0)
+    storage_live(_3)
+    _3 = copy (*self).d panic.+ const 1u32
+    (*self).d = move _3
+    storage_live(_4)
+    _4 = move f
+    storage_live(_5)
+    storage_live(_6)
+    _6 = &two-phase-mut (*self)
+    _5 = (move _6,)
+    _0 = TraitClause0<'_>::call_once(move _4, move _5)
+    ↳⚡ conditional_drop[{built_in impl Destruct for T2}::drop_glue<'25>] _4
+        ↳⚡ storage_dead(_3)
+            storage_dead(f)
+            storage_dead(self)
+            unwind_terminate
+        conditional_drop[{built_in impl Destruct for T2}::drop_glue<'13>] f
+        ↳⚡ storage_dead(_3)
+            storage_dead(f)
+            storage_dead(self)
+            unwind_terminate
+        storage_dead(_3)
+        storage_dead(f)
+        storage_dead(self)
+        unwind_continue
+    storage_dead(_6)
+    storage_dead(_5)
+    storage_dead(_4)
+    conditional_drop[{built_in impl Destruct for T2}::drop_glue<'26>] f
+    ↳⚡ storage_dead(_3)
+        storage_dead(f)
+        storage_dead(self)
+        unwind_continue
+    storage_dead(_3)
+    storage_dead(f)
+    storage_dead(self)
+    return
+}
+
+struct test_crate::{Eng<'a>}::use_guarded::{closure}<'a, '_1, '_2, '_3> {
+  _0: &'_3 u32,
+}
+
+// Full name: test_crate::{Eng<'a>}::use_guarded::{impl FnOnce<(&'_4 mut Eng<'_2>,), u32> for test_crate::{Eng<'a>}::use_guarded::{closure}<'a, '_1, '_2, '_3>}::call_once
+extern "rust-call" fn {impl FnOnce<(&'_4 mut Eng<'_2>,), u32> for test_crate::{Eng<'a>}::use_guarded::{closure}<'a, '_1, '_2, '_3>}::call_once<'a, '_1, '_2, '_3, '_4>(_1: test_crate::{Eng<'a>}::use_guarded::{closure}<'a, '_1, '_2, '_3>, tupled_args: (&'_4 mut Eng<'_2>,)) -> u32
+where
+    Outlives0: ('_2: '_4),
+{
+    let _0: u32; // return
+    let _1: test_crate::{Eng<'a>}::use_guarded::{closure}<'a, '_1, '_2, '_3>; // arg #1
+    let tupled_args: (&'_4 mut Eng<'_2>,); // arg #2
+    let e: &'16 mut Eng<'17>; // local
+    let _4: &'18 mut Eng<'19>; // anonymous local
+    let _5: u32; // anonymous local
+
+    storage_live(_0)
+    storage_live(e)
+    e = noretag move tupled_args._0
+    storage_live(_4)
+    _4 = &two-phase-mut (*e)
+    storage_live(_5)
+    _5 = copy (*_1._0)
+    _0 = f<'22, '24>(move _4, move _5)
+    ↳⚡ storage_dead(e)
+        storage_dead(tupled_args)
+        storage_dead(_1)
+        unwind_continue
+    storage_dead(_5)
+    storage_dead(_4)
+    storage_dead(e)
+    storage_dead(tupled_args)
+    storage_dead(_1)
+    return
+}
+
+// Full name: test_crate::{Eng<'a>}::use_guarded::{impl FnOnce<(&'_4 mut Eng<'_2>,), u32> for test_crate::{Eng<'a>}::use_guarded::{closure}<'a, '_1, '_2, '_3>}
+impl<'a, '_1, '_2, '_3, '_4> FnOnce<(&'_4 mut Eng<'_2>,), u32> for test_crate::{Eng<'a>}::use_guarded::{closure}<'a, '_1, '_2, '_3>
+where
+    Outlives0: ('_2: '_4),
+{
+    fn call_once = {impl FnOnce<(&'_4 mut Eng<'_2>,), u32> for test_crate::{Eng<'a>}::use_guarded::{closure}<'a, '_1, '_2, '_3>}::call_once<'a, '_1, '_2, '_3, '_4>
+    vtable: lazy
+}
+
+// Full name: test_crate::{Eng<'a>}::use_guarded
+pub fn use_guarded<'a, '_1>(self: &'_1 mut Eng<'a>, x: u32) -> u32
+where
+    Outlives0: ('a: '_1),
+{
+    let _0: u32; // return
+    let self: &'3 mut Eng<'4>; // arg #1
+    let x: u32; // arg #2
+    let _3: &'5 mut Eng<'6>; // anonymous local
+    let _4: test_crate::{Eng<'a>}::use_guarded::{closure}<'20, '21, '22, '23>; // anonymous local
+    let _5: &'24 u32; // anonymous local
+
+    storage_live(_0)
+    storage_live(_3)
+    _3 = &two-phase-mut (*self)
+    storage_live(_4)
+    storage_live(_5)
+    _5 = &x
+    _4 = test_crate::{Eng<'a>}::use_guarded::{closure} { _0: move _5 }
+    storage_dead(_5)
+    _0 = guarded<'33, '81, u32, test_crate::{Eng<'a>}::use_guarded::{closure}<'47, '48, '33, '50>>[for<'_0_1> {impl FnOnce<(&'_4 mut Eng<'_2>,), u32> for test_crate::{Eng<'a>}::use_guarded::{closure}<'a, '_1, '_2, '_3>}<'47, '48, '33, '50, '79>](move _3, move _4)
+    ↳⚡ storage_dead(x)
+        storage_dead(self)
+        unwind_continue
+    storage_dead(_4)
+    storage_dead(_3)
+    storage_dead(x)
     storage_dead(self)
     return
 }

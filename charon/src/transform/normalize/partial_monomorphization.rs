@@ -509,8 +509,6 @@ struct PartialMonomorphizer<'a> {
     closure_types: HashSet<TypeDeclId>,
     /// The `Fn`, `FnMut` and `FnOnce` traits.
     fn_traits: HashSet<TraitDeclId>,
-    /// Whether we're visiting the `Fn*` impl of a closure or one of its methods.
-    in_closure_fn_impl: bool,
     /// Map of generic params for each item. We can't use `ctx.translated` because while iterating
     /// over items the current item isn't available anymore, which would break recursive types.
     /// This also makes it possible to record the generics of our to-be-added items without adding
@@ -580,7 +578,6 @@ impl<'a> PartialMonomorphizer<'a> {
             infected_types,
             closure_types,
             fn_traits,
-            in_closure_fn_impl: false,
             generic_params,
             to_process,
             partial_mono_shapes: SeqHashMap::default(),
@@ -835,8 +832,8 @@ impl VisitAstMut for PartialMonomorphizer<'_> {
             *x = resolved;
         }
         // A closure's `Fn*` impls keep implementing the generic `Fn*` traits: specialized items
-        // call their methods directly. The other `Fn*` predicates about closures, e.g. clauses
-        // whose proof we couldn't bake in, are handled like any other.
+        // call their methods directly, and the clauses whose proof we couldn't bake in stay about
+        // the generic traits (see `exit_trait_decl_ref`).
         if let TraitRefKind::TraitImpl(_) = x.kind
             && self.is_closure_fn_trait(&x.trait_decl_ref)
         {
@@ -885,30 +882,19 @@ impl VisitAstMut for PartialMonomorphizer<'_> {
         // the proofs of the trait's parent clauses must stay about the generic traits too.
         if self.is_closure_fn_trait(&x.impl_trait) {
             let implied_trait_refs = mem::take(&mut x.implied_trait_refs);
-            self.in_closure_fn_impl = true;
             let res = self.visit_inner(x);
-            self.in_closure_fn_impl = false;
             x.implied_trait_refs = implied_trait_refs;
             res
         } else {
             self.visit_inner(x)
         }
     }
-    fn visit_fun_source(&mut self, x: &mut FunSource) -> ControlFlow<Self::Break> {
-        // The methods of the `Fn*` impls of a closure, see `visit_trait_impl`.
-        if let FunSource::TraitImpl { trait_ref, .. } = x
-            && self.is_closure_fn_trait(trait_ref)
-        {
-            self.in_closure_fn_impl = true;
-            let res = self.visit_inner(x);
-            self.in_closure_fn_impl = false;
-            res
-        } else {
-            self.visit_inner(x)
-        }
-    }
     fn exit_trait_decl_ref(&mut self, x: &mut TraitDeclRef) {
-        if self.in_closure_fn_impl && self.is_closure_fn_trait(x) {
+        // We never specialize the `Fn*` traits: a closure's `Fn*` impls implement the generic
+        // traits, so the predicates they may prove (e.g. the bound `F: FnOnce(&mut T)` of a helper
+        // called with a closure we couldn't bake in) must be about the generic traits too. Aeneas
+        // handles mutable borrows in the arguments of the `Fn*` traits.
+        if self.fn_traits.contains(&x.id) {
             return;
         }
         if let Some(new_decl_ref) = self.process_generics(x.id.into(), &x.generics) {

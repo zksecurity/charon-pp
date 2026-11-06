@@ -44,6 +44,17 @@ impl<'a> Eng<'a> {
     pub fn opt(&mut self, o: Option<u32>) -> Option<u32> {
         o.map(|x| self.f(x))
     }
+
+    fn guarded<T>(&mut self, f: impl FnOnce(&mut Self) -> T) -> T {
+        self.d += 1;
+        f(self)
+    }
+
+    // A closure that captures no `&mut` isn't baked in: the bound of the helper stays about the
+    // generic `FnOnce`, which the closure implements.
+    pub fn use_guarded(&mut self, x: u32) -> u32 {
+        self.guarded(|e| e.f(x))
+    }
 }
 
 fn tel(n: u32, mut f: impl FnMut(u32)) {
